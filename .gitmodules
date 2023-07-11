@@ -1,0 +1,6 @@
+[submodule "nix-shell-tools"]
+	path = nix-shell-tools
+	url = git@github.com:tauroid/nix-shell-tools
+[submodule "nix-sandbox"]
+	path = nix-sandbox
+	url = git@github.com:tauroid/nix-sandbox
