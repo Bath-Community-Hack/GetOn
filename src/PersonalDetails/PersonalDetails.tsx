@@ -2,16 +2,22 @@
 import { useState } from "react"
 import React from "react"
 
-const PersonalDetails = (): JSX.Element => {
-    const [postcode, setPostcode] = useState<string>("")
+interface PersonalDetailsProps {
+    postcode: string
+	setPostcode: Function
+	 
+}
+
+
+const PersonalDetails = (props: PersonalDetailsProps): JSX.Element => {
     const handlePostcode = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPostcode(event.target.value)
-        console.log(postcode)
+        props.setPostcode(event.target.value)
+        console.log(props.postcode)
     }
 
     return (
         <div>
-            <input className="text-black rounded" type="text" id="postcode" value={postcode} placeholder="Enter your postcode"  onChange={(event: React.ChangeEvent<HTMLInputElement>) => handlePostcode(event)}/>
+            <input className="rounded" type="text" id="postcode" value={props.postcode} placeholder="Enter your postcode"  onChange={(event: React.ChangeEvent<HTMLInputElement>) => handlePostcode(event)}/>
         </div>
     )
 }

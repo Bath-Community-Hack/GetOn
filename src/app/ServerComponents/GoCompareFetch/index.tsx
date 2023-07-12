@@ -7,27 +7,27 @@ export async function getDataByPostcode(postcode: string) {
         query: gql`
         {
            deals(
-            $postcode: ${postcode}, 
-            $uprn: null, 
-            $sort: "RECOMMENDED", 
-            $reverse: false, 
-            $count: 10, 
-            $page: 1, 
-            $current_supplier: null"
+            postcode: ${postcode}, 
+            uprn: null, 
+            sort: "RECOMMENDED", 
+            reverse: false, 
+            count: 10, 
+            page: 1, 
+            current_supplier: null
             ) {
                 deal_filters(
-                    postcode: $postcode
-                    current_supplier: $current_supplier   
-                    filters: $filters
-                    fixed_filters: $fixed_filters
-                ) {
-                    connection_types
+                    postcode: ${postcode}
+                    current_supplier: null    
+                    filters: null
+                    fixed_filters: null
+                 ) {
+                    connection_types   
                     package_types
                     contract_lengths
                     gift
                     download_speeds(
-                        buckets: $download_speed_buckets
-                        returnEmptyBuckets: $return_empty_download_speed_buckets
+                        buckets: null
+                        returnEmptyBuckets: null
                     ) {
                         min
                         max
@@ -59,19 +59,19 @@ export async function getDataByPostcode(postcode: string) {
                     __typename
                 }
                 deals(
-                    postcode: $postcode
-                    uprn: $uprn
-                    first: $count
-                    page: $page
-                    sort: $sort
-                    reverse: $reverse
-                    current_supplier: $current_supplier
-                    filters: $filters
-                    fixed_filters: $fixed_filters
+                    postcode: ${postcode}
+                    uprn: $null
+                    first: 1
+                    page: 1
+                    sort: "RECOMMENDED"
+                    reverse: false
+                    current_supplier: null
+                    filters: null
+                    fixed_filters: null
                 ) {
                     paginatorInfo {
-                        currentPage
-                        firstItem
+                        currentPage: 1
+                        firstItem: 
                         hasMorePages
                         lastItem
                         lastPage
@@ -86,7 +86,7 @@ export async function getDataByPostcode(postcode: string) {
                     __typename
                 }
                 all_suppliers: deal_filters(fixed_filters: $fixed_filters)
-                @include(if: $get_all_suppliers) {
+                @include(if: true) {
                     suppliers {
                         id
                         name
@@ -99,10 +99,10 @@ export async function getDataByPostcode(postcode: string) {
                     buckets: $aggregate_buckets
                     bucketField: DOWNLOAD_SPEED
                     aggregateFields: [MIN_MONTHLY_PRICE]
-                    postcode: $postcode
-                    current_supplier: $current_supplier
-                    filters: $filters
-                    fixed_filters: $fixed_filters
+                    postcode: ${postcode}
+                    current_supplier: null
+                    filters: null
+                    fixed_filters: null
                 ) {
                     aggregateField
                     values {
@@ -112,16 +112,16 @@ export async function getDataByPostcode(postcode: string) {
                     }
                     __typename
                 }
-                featured_deals: deals(filters: $filters, first: 3, page: 1, sort: RECOMMENDED)
-                @include(if: $get_featured_deals) {
+                featured_deals: deals(filters: null, first: 3, page: 1, sort: RECOMMENDED)
+                @include(if: true) {
                     data {
                         ...DealParts
                         __typename
                     }
                     __typename
                 }
-                special_offers(fixed_filters: $fixed_filters)
-                @include(if: $get_special_offers) {
+                special_offers(fixed_filters: null)
+                @include(if: null) {
                     id
                     name
                     download_speed
@@ -262,14 +262,13 @@ export async function getDataByPostcode(postcode: string) {
                     __typename  
                 }  
                 is_streaming_service  
-                __typename
-            }
+                __typename}
             }
         }
         `,
-      })
-      .then((result) => console.log(result));
-  }
+    })
+        .then((result) => console.log(result));
+}
 
 
 //   {
