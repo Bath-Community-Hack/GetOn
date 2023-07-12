@@ -24,7 +24,8 @@ export async function getSocialTariffsFromProviders(
 
   return [
     ...providers.flatMap(provider =>
-        ofcomSocialTariffsCache.filter(({name})=>{
+      (ofcomSocialTariffsCache as OfcomSocialTariff[])
+        .filter(({name})=>{
         const searchPattern =
             ctmProviderToSocialTariffSearchPattern[provider]
 
