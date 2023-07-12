@@ -161,12 +161,111 @@ export async function getDataByPostcode(postcode: string) {
                 upload_speed
                 estimated_speed {
                     min
-                    max    __typename  }  limit  phone_charge_peak  free_evening_calls  free_weekend_calls  free_peak_calls  free_mobile_calls  monthly_price  initial_price  delivery_price  headline_price  connection_price  new_line_price  total_first_year_cost  full_contract_cost  discount_price  discount_total  discount_average_price  discount_months  discount_total  discount_type  discount_name  discount_description  discount_expiry  discount_promo_code  equipment_price  existing_broadband_customers  featured  gift  min_contract_length  overcharge  business  student  promotion_text  sales_number  connection_type  connection_type_exact  phone_charge_peak  phone_charge_evening  phone_charge_weekend  static_ip  includes_tv  includes_phone  includes_mobile_bb  includes_home_bb  url  discount_expiry  voucher_description  promotional_value  promotion_image  promotion_description  gift_value  bullet_1  bullet_2  bullet_3  bullet_4  bullet_5  bullet_6  bullet_7  bullet_8  tv_bullet_1  tv_bullet_2  tv_bullet_3  tv_bullet_4  tv_bullet_5  tv_bullet_6  tv_bullet_7  accuracy  technology  supplier {    ...Supplier    __typename  }  tv_packs {    ...TvPack    __typename  }  __typename}fragment Supplier on Supplier {  id  name  url  image  phone_number  score  __typename}fragment TvPack on TvPack {  id  name  tv_channels {    id    name    image    popularity    __typename  }  is_streaming_service  __typename}
+                    max
+                    __typename
+                }
+                limit
+                phone_charge_peak
+                free_evening_calls
+                free_weekend_calls
+                free_peak_calls
+                free_mobile_calls
+                monthly_price  
+                initial_price
+                delivery_price
+                headline_price
+                connection_price
+                new_line_price
+                total_first_year_cost  
+                full_contract_cost  
+                discount_price  
+                discount_total  
+                discount_average_price  
+                discount_months  
+                discount_total  
+                discount_type  
+                discount_name  
+                discount_description  
+                discount_expiry  
+                discount_promo_code  
+                equipment_price  
+                existing_broadband_customers  
+                featured  
+                gift 
+                min_contract_length  
+                overcharge
+                business  
+                student  
+                promotion_text
+                sales_number  
+                connection_type  
+                connection_type_exact  
+                phone_charge_peak  
+                phone_charge_evening  
+                phone_charge_weekend  
+                static_ip  
+                includes_tv  
+                includes_phone  
+                includes_mobile_bb  
+                includes_home_bb  
+                url  
+                discount_expiry  
+                voucher_description  
+                promotional_value  
+                promotion_image  
+                promotion_description  
+                gift_value  
+                bullet_1  
+                bullet_2  
+                bullet_3  
+                bullet_4  
+                bullet_5  
+                bullet_6  
+                bullet_7  
+                bullet_8  
+                tv_bullet_1  
+                tv_bullet_2  
+                tv_bullet_3  
+                tv_bullet_4  
+                tv_bullet_5  
+                tv_bullet_6  
+                tv_bullet_7  
+                accuracy  
+                technology  
+                supplier {    
+                    ...Supplier    
+                    __typename  
+                }  
+                tv_packs {    
+                    ...TvPack   
+                    __typename
+                }  
+                __typename
+            }
+            fragment Supplier on Supplier {
+                id  
+                name
+                url  
+                image  
+                phone_number  
+                score  
+                __typename
+            }
+            fragment TvPack on TvPack {
+                id  
+                name  
+                tv_channels {    
+                    id    
+                    name    
+                    image    
+                    popularity    
+                    __typename  
+                }  
+                is_streaming_service  
+                __typename
+            }
             }
         }
-
-  
-
         `,
       })
       .then((result) => console.log(result));
