@@ -6,10 +6,11 @@ export async function CTMProvidersList(
   const suppliers = await getCTMSuppliers(postcode)
 
   if (!Array.isArray(suppliers)) {
-    return <>{suppliers.error}</>
+    return <>{/*suppliers.error*/}</>
   }
 
-  return <>
+  return <div className="flex flex-col">
+    <div className="border-b mb-2">Providers</div>
     {suppliers.map(supplier => <div key={supplier}>{supplier}</div>)}
-  </>
+  </div>
 }

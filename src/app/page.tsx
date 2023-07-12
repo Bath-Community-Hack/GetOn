@@ -4,6 +4,7 @@ import { OfcomTestTable } from '../ServerComponents/OfcomTestTable'
 import { CTMProvidersList } from '@/ServerComponents/CTMProvidersList'
 import PostcodeInput from '@/ClientComponents/PostcodeInput'
 import { useParams } from 'next/navigation'
+import Deals from '../ServerComponents/Deals'
 
 export default function Home({searchParams}:{searchParams:{postCode?:string}}) {
   return (
@@ -12,7 +13,10 @@ export default function Home({searchParams}:{searchParams:{postCode?:string}}) {
       <PostcodeInput pagePostcode={searchParams.postCode ?? ''}/>
       {/*<OfcomTestTable/>*/}
       <div className="mb-3" />
+      <div className="flex flex-row items-start">
       <CTMProvidersList postcode={searchParams.postCode ?? ''}/>
+      <Deals postcode={searchParams.postCode ?? ''}/>
+      </div>
     </main>
   )
 }
