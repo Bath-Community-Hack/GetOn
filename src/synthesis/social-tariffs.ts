@@ -34,7 +34,7 @@ export async function getSocialTariffsFromProviders(
         })),
     ...bathSpecificSearchPatternsNotInCTM.flatMap(
       searchPattern =>
-        ofcomSocialTariffsCache.filter(
+        (ofcomSocialTariffsCache as OfcomSocialTariff[]).filter(
           ({name})=>name.toLowerCase().includes(
             searchPattern.toLowerCase())))
   ]
