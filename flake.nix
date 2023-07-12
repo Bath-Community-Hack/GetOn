@@ -4,18 +4,18 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    nix-sandbox.url = "git+file:./nix-sandbox?ref=main";
-    nix-shell-tools.url = "git+file:./nix-shell-tools?ref=main";
+    /*nix-sandbox.url = "git+file:./nix-sandbox?ref=main";*/
+    /*nix-shell-tools.url = "git+file:./nix-shell-tools?ref=main";*/
   };
 
   outputs = { self, nixpkgs, flake-utils,
-              nix-sandbox, nix-shell-tools }:
+              /*nix-sandbox, nix-shell-tools*/ }:
     let systems = ["x86_64-linux"];
     in flake-utils.lib.eachSystem systems (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
         devShells.default =
-          (import "${nix-shell-tools}/launch-in-screens.nix")
+          (import ./nix-shell-tools/launch-in-screens.nix)
             pkgs
             (launch-screen-pkgs: getLaunchScriptFromCommands:
               let launch-screen = getLaunchScriptFromCommands
@@ -30,7 +30,7 @@
                   }
                 ];
               in
-                (import "${nix-sandbox}/sandboxed-shell-docker.nix")
+                (import ./nix-sandbox/sandboxed-shell-docker.nix)
                   {
                     pkgs = pkgs;
                     tools = (launch-screen-pkgs ++ [
