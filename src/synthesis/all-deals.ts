@@ -29,5 +29,5 @@ export async function getAllDeals(postcode: string = '')
     available: 'yes'
   }))
 
-  return [...socialTariffs, ...ctmDealsCommonFormat]
+  return [...(socialTariffs as Deal[]), ...ctmDealsCommonFormat]
 }
