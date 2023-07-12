@@ -21,8 +21,8 @@ export async function ofcomSocialTariffs()
     const tds = domrow.querySelectorAll('td')
 
     const a = tds[0].querySelector('a')
-    const href = a?.attributes['href']
-    const name = a?.childNodes[0].innerText
+    const href = a?.attributes['href'] as string
+    const name = a?.childNodes[0].innerText as string
     const price = tds[1].innerText
     const speed = tds[2].innerText
     const available = tds[3].innerText
