@@ -11,7 +11,7 @@ export default function PostcodeInput({pagePostcode}:{
   function onSubmit(e: FormEvent) {
     e.preventDefault()
     const data = new FormData(e.target as HTMLFormElement)
-    router.push("/?postCode="+data.get('postcode'))
+    router.push("/apitest?postCode="+data.get('postcode'))
   }
 
   return <form {...{onSubmit}}>
