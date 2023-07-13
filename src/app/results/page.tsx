@@ -9,7 +9,10 @@ export default function Results() {
   return <main className={gotham.className + "flex min-h-screen flex-col items-center justify-start" }>
     <Image className="max-w-[400px] w-full" src={results} alt="yes, the whole page is a screenshot. woops" />
     <div className="text-center mt-3">
-    <a className="text-[#1C75BC] hover:text-blue-400" href="/apitest">(Click this link for a demo of the package search functionality)</a>
+    <a className="text-[#1C75BC] hover:text-blue-400"
+       href="/apitest">
+      (We ran out of time... Click this link for a demo of the package search functionality)
+    </a>
     </div>
   </main>
 }
