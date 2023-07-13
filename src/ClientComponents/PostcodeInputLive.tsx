@@ -2,13 +2,15 @@
 
 import axios from "axios"
 import { ChangeEvent, Ref, RefObject, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react"
+import arrow from '../../public/images/arrow.png'
+import Image from "next/image"
 
 async function validatePostcode(
   inputRef: RefObject<HTMLInputElement>,
   errorDisplayTimeoutHandle: ReturnType<typeof setTimeout>|undefined,
   setErrorDisplayTimeoutHandle: (h: ReturnType<typeof setTimeout>|undefined) => void,
   setPostcodeValid: (b: boolean) => void,
-  setPostcodeError: (e: string) => void
+  setPostcodeError: (e: string) => void,
 ) {
   const postcode = inputRef.current?.value ?? ''
 
@@ -35,7 +37,10 @@ async function validatePostcode(
   }
 }
 
-export default forwardRef(function PostcodeInputLive({}, ref) {
+export default forwardRef(function PostcodeInputLive({submit}: {
+  submit: RefObject<HTMLInputElement>
+}, ref) {
+
   const [timeoutHandle, setTimeoutHandle] =
     useState<ReturnType<typeof setTimeout>|undefined>(undefined)
   const [errorDisplayTimeoutHandle, setErrorDisplayTimeoutHandle] =
@@ -71,6 +76,7 @@ export default forwardRef(function PostcodeInputLive({}, ref) {
     }, 300))
   }
 
+  /*
   useEffect(() => {validatePostcode(
     inputRef,
     errorDisplayTimeoutHandle,
@@ -78,18 +84,33 @@ export default forwardRef(function PostcodeInputLive({}, ref) {
     setPostcodeValid,
     setPostcodeError
   )}, [])
+  */
 
   return <>
-    <input ref={inputRef}
-      name="postcode"
-      className={
-        "px-2 py-2 mt-2 rounded-3xl text-center shadow-inner border"
-        +" w-full shadow-[inset_2px_2px_3px_#888]"
-        +(postcodeValid === false ? " border-red-400 border-2" : "")
-      }
-      type="text"
-      {...{onChange}}
-    />
+    <div className={
+      "flex flex-row"
+      +" mt-2 rounded-3xl text-center shadow-inner border"
+      +" w-full shadow-[inset_2px_2px_3px_#888]"
+      +(postcodeValid === false ? " outline outline-red-500"
+      : (postcodeValid === true ? " outline outline-green-500"
+      : " focus-within:outline focus-within:outline-blue-500"))
+    }>
+      <div className="flex-grow flex flex-row items-center ms-2 my-1">
+        <span className="block w-full"><input ref={inputRef}
+          name="postcode"
+          className="outline-none w-full"
+          type="text"
+          {...{onChange}}
+        /></span>
+      </div>
+      <button className="flex-none w-8"
+              onClick={()=>{
+                submit.current?.click()
+              }
+              }>
+        <Image src={arrow} alt="right arrow" />
+      </button>
+    </div>
     <div className="text-center mt-1">{postcodeError}</div>
   </>
 })

@@ -4,6 +4,9 @@ import PostcodeInputLive from "@/ClientComponents/PostcodeInputLive"
 import QuizTemplate from "@/ServerComponents/QuizTemplate"
 import { useRouter } from "next/navigation"
 import { FormEvent, useRef, useState } from "react"
+import i from '../../../public/images/info.png'
+import Image from "next/image"
+import Step1of3 from '../../../public/images/step_1of3.png'
 
 export default function Location() {
   const router = useRouter()
@@ -21,24 +24,33 @@ export default function Location() {
     }
   }
 
+  const submitRef = useRef<HTMLInputElement>(null)
+
+  console.log(submitRef)
+
   return <QuizTemplate>
-      <div className="w-full flex-grow flex flex-col justify-center items-center">
+      In just three quick steps we can find you the best broadband
+      connection plan to meet your needs.
+      <div className="w-full flex-grow flex flex-col items-center gap-4">
+        <Image className="mt-4 w-7/12 max-w-[220px]" src={Step1of3} alt="Step 1 of 3" />
         <form {...{onSubmit}} className="flex flex-col items-center">
           <div>
-            <div className="flex justify-between">
-              <div className="text-[#25A]">
-                What is your postcode?
+            <div className="flex justify-between items-center">
+              <div className="text-[#25A] font-semibold p-2">
+                What is the postcode of where you&apos;d like
+                connection?
               </div>
-              <div>ℹ</div>
+              <div className="flex-none ms-2 w-8">
+                <Image src={i} alt="info" />
+              </div>
             </div>
-          <div>
-            <PostcodeInputLive ref={postcodeRef} />
+          <div className="px-2">
+            <PostcodeInputLive ref={postcodeRef} submit={submitRef} />
           </div>
         </div>
         <div className="h-16"/>
         <div>
-          <input type="submit" className="text-lg text-blue-800 underline hover:text-blue-400 cursor-pointer"
-            value="Step 2 of 4"
+          <input ref={submitRef} hidden type="submit" className="text-lg text-blue-800 underline hover:text-blue-400 cursor-pointer"
           />
         </div>
         </form>

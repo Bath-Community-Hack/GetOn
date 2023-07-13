@@ -5,39 +5,46 @@ import { CTMProvidersList } from '@/ServerComponents/CTMProvidersList'
 import PostcodeInput from '@/ClientComponents/PostcodeInput'
 import { useParams } from 'next/navigation'
 import Deals from '../ServerComponents/Deals'
-import GetOnLogo from '../../public/Get On-02.png'
+import GetOnLogo from '../../public/images/NEWEST_GetOn_logo_Bath_v2.png'
+import Tech4Good from '../../public/images/techforgood-SW-white.png'
+import i from '../../public/images/info.png'
+import GetStarted from '../../public/images/get_started.png'
 
 export default function Home({searchParams}:{searchParams:{postCode?:string}}) {
   return (
     <main className="flex min-h-screen flex-col items-center justify-start bg-white text-black p-2">
-      <div className="text-[#28D]">
+      <div className="text-[#28D] font-bold">
         <p>Get what you&apos;re entitled to</p>
         <p>Get connected</p>
         <p>Get on with things...</p>
       </div>
-      <Image className="m-2" alt="GetOn logo" src={GetOnLogo}/>
+      <div className="flex flex-col sm:flex-row items-center p-2">
+        <Image className="w-full max-w-sm" alt="GetOn logo" src={GetOnLogo}/>
+        <span className="mx-3 w-fit text-sm font-bold whitespace-nowrap">powered by</span>
+        <Image className="w-10/12 my-2 max-w-sm"
+               alt="Tech4Good South West logo"
+               src={Tech4Good} />
+      </div>
       <div className="text-sm">
-        <p>
+        <p className="mb-3">
           GetOn is here to help you find the perfect broadband
           package for your needs.
         </p>
-        <p>
+        <p className="mb-3">
           We are unaffiliated with any provider and are the only
           resource that includes social tariffs alongside
           commercial offers.
         </p>
         <p>
-          At any point, click the ℹ for more information.
+          At any point, click the {" "}
+          <Image className="inline h-6 w-6" alt="info" src={i}/>
+          {" "} for more information.
         </p>
       </div>
-      <div className="flex flex-col justify-center flex-grow">
-        <div>
-          <a href="/location"
-             className="text-lg text-blue-800 underline hover:text-blue-400">
-            Get started
-          </a>
-        </div>
-      </div>
+      <a href="/location"
+         className="mt-2 text-lg text-blue-800 underline hover:text-blue-400 w-7/12 max-w-[250px]">
+        <Image alt="Get Started" src={GetStarted}/>
+      </a>
     </main>
   )
 }

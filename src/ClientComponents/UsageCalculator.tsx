@@ -4,8 +4,8 @@ import Image from "next/image"
 
 import useDerivedState from '../useDerivedState'
 
-import fullPerson from '../../public/Get On-04.png'
-import emptyPerson from '../../public/Get On-05.png'
+import fullPerson from '../../public/images/Figure_fill.png'
+import emptyPerson from '../../public/images/Figure_blank.png'
 
 interface UsageCalculatorProps {
     usage: number
@@ -120,7 +120,7 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
                         {props.usage}
                     </span>
                     <div className="w-3" />
-                    <span className="font-bold">Megabytes <p>/ second</p></span>
+                    <span className="font-bold">Megabits <p>/ second</p></span>
                 </div>
             </div>
         </div>
