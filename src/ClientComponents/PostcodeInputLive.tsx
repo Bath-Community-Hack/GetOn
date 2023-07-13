@@ -95,10 +95,10 @@ export default forwardRef(function PostcodeInputLive({submit}: {
       : (postcodeValid === true ? " outline outline-green-500"
       : " focus-within:outline focus-within:outline-blue-500"))
     }>
-      <div className="flex-grow flex flex-row items-center ms-2 my-1">
+      <div className="flex-grow flex flex-row items-center justify-center ms-2 my-1">
         <span className="block w-full"><input ref={inputRef}
           name="postcode"
-          className="outline-none w-full"
+          className="outline-none w-32 text-center"
           type="text"
           {...{onChange}}
         /></span>
