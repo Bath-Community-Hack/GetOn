@@ -36,7 +36,7 @@ export default function Location() {
         <form {...{onSubmit}} className="flex flex-col items-center">
           <div>
             <div className="flex justify-between items-center">
-              <div className="text-[#25A] font-semibold p-2">
+              <div className="text-[#1C75BC] font-semibold p-2">
                 What is the postcode of where you&apos;d like
                 connection?
               </div>

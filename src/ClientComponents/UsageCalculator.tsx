@@ -96,9 +96,9 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
     }
 
     return (
-        <div className="w-fit">
+        <div className="w-fit mt-3">
             <div className="flex flex-row items-center">
-                <div className="text-[#28D] text-lg leading-5 font-bold flex-grow">
+                <div className="text-[#1C75BC] text-lg leading-5 font-bold flex-grow">
                     How many people live in this household?
                 </div>
                 <div className="w-8 ms-2 flex-none">
@@ -107,7 +107,7 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
             </div>
             <PeopleSelector people={total} setPeople={setTotalConstrained}/>
             <div className="flex flex-row items-center mb-2">
-                <div className="text-[#28D] text-lg leading-5 font-bold flex-grow">
+                <div className="text-[#1C75BC] text-lg leading-5 font-bold flex-grow">
                     And what do they use the internet for?
                 </div>
                 <div className="w-8 ms-2 flex-none">
@@ -123,13 +123,13 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
             <p>Gaming</p>
             <PeopleSelector people={gaming} setPeople={setAndSyncTotal(setGaming)}/>
 
-            <div className="w-full mt-3 border-b border-[#25A]"/>
+            <div className="w-full mt-3 border-b border-[#1C75BC]"/>
             <div className="text-center mt-2">
-                <div className="font-extrabold text-[#25A] text-xl">
+                <div className="font-extrabold text-[#1C75BC] text-xl">
                     Your peak usage:
                 </div>
                 <div className="flex items-center justify-center mt-2">
-                    <span className="font-extrabold text-[#25A] text-5xl">
+                    <span className="font-extrabold text-[#1C75BC] text-5xl">
                         {props.usage}
                     </span>
                     <div className="w-3" />

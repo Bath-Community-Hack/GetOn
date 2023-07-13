@@ -10,10 +10,14 @@ import Tech4Good from '../../public/images/techforgood-SW-white.png'
 import i from '../../public/images/info.png'
 import GetStarted from '../../public/images/get_started.png'
 
+import localFont from 'next/font/local'
+
+const gotham = localFont({src: '../../public/fonts/Gotham-Font/GothamMedium.ttf'})
+
 export default function Home({searchParams}:{searchParams:{postCode?:string}}) {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start bg-white text-black p-3">
-      <div className="text-[#28D] font-bold">
+    <main className={gotham.className + " flex min-h-screen flex-col items-center justify-start bg-white p-3" }>
+      <div className="text-[#1C75BC] font-bold">
         <p>Get what you&apos;re entitled to</p>
         <p>Get connected</p>
         <p>Get on with things...</p>

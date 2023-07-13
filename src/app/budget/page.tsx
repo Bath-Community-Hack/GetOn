@@ -54,7 +54,7 @@ export default function Budget(
       />
   <div>
     <div className="flex flex-row items-center w-full">
-      <div className="font-bold text-[#28D] text-lg text-left w-full flex-grow">
+      <div className="font-bold text-[#1C75BC] text-lg text-left w-full flex-grow">
         Your monthly budget
       </div>
       <div className="w-8 ms-2 flex-none">
@@ -73,7 +73,7 @@ export default function Budget(
           }
         >
             {id === budgetId &&
-            <div className="bg-[#28D] rounded-xl w-4 h-4"/>}
+            <div className="bg-[#1C75BC] rounded-xl w-4 h-4"/>}
           </div>
           <div className="p-2">
           £{budget}{id === budgets.length-1 ? '+' : ''}
@@ -82,7 +82,7 @@ export default function Budget(
       ))}
     </div>
     <div className="flex flex-row items-center w-full mb-2">
-      <div className="font-bold text-[#28D] text-lg text-left w-full flex-grow leading-5">
+      <div className="font-bold text-[#1C75BC] text-lg text-left w-full flex-grow leading-5">
         Do you receive any of these benefits?
       </div>
       <div className="w-8 ms-2 flex-none">
@@ -93,7 +93,7 @@ export default function Budget(
       <div key={i} className="my-1 w-full flex flex-row justify-between items-center">
         {benefit.title}
         <div className="h-7 w-7 rounded-xl shadow-[inset_2px_2px_3px_#888] relative cursor-pointer"
-           style={{border:'2px solid #28D'}}
+           style={{border:'2px solid #1C75BC'}}
            onClick={()=>{
              selectedBenefits[i] = !selectedBenefits[i]
              setSelectedBenefits([...selectedBenefits])
