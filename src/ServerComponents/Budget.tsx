@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 
 enum benefit {
     Other = 0,
@@ -12,7 +13,7 @@ enum benefit {
 
 type ToggleProps = {
     title: string;
-    onToggle: React.MouseEventHandler<HTMLElement>
+    id: benefit
 }
 
 const Toggle = ( props: ToggleProps ) => {
@@ -21,8 +22,8 @@ const Toggle = ( props: ToggleProps ) => {
             <span className="toggle-label left-align">{props.title}</span>
             <div className="toggle-container">
                 <span>Yes</span>
-                <label className="toggle" onClick={props.onToggle}>
-                    <input type="checkbox"></input>
+                <label className="toggle">
+                    <input type="checkbox" name="yourBenefits" value={props.id.toString()}></input>
                     <span className="toggle-handle"></span>
                 </label>
                 <span>No</span>
@@ -31,13 +32,19 @@ const Toggle = ( props: ToggleProps ) => {
     );
 };
 
-const handleToggle = ( value: benefit ) => {
-    // add each of the ON benefits to a list in state
-}
 
 export default function Budget() {
+    const [setBudget] = useState("")
+    const [setBenefits] = useState(Array<benefit>)
+
+    function onSubmit(e: React.FormEvent) {
+        e.preventDefault()
+        const data = new FormData(e.target as HTMLFormElement)
+        console.log(data)
+      }
+
     return (
-        <div>
+        <form {...{onSubmit}}>
             <div className="blurb">We just need a few details to find you the best tariff for your needs...</div>
             <div>
                 <p>Your Budget:</p>
@@ -52,14 +59,16 @@ export default function Budget() {
             <div>
                 <p>If you receive benefits you may be elgible for a Social Tariff. If you would be interested in seeing these options please tell us if you receive any of these benefits:</p>
                 <div className="info-button"></div>
-                <Toggle title={"Universal Credit (UC)"} onToggle={()=> handleToggle(benefit.UC)} />
-                <Toggle title={"Jobseeker's Allowance (JSA)"} onToggle={()=> handleToggle(benefit.JSA)} />
-                <Toggle title={"Employment and Support Allowance (ESA)"} onToggle={()=> handleToggle(benefit.ESA)} />
-                <Toggle title={"Pension Credit"} onToggle={()=> handleToggle(benefit.Pension)} />
-                <Toggle title={"Personal Independence Payment (PIP)"} onToggle={()=> handleToggle(benefit.PIP)} />
-                <Toggle title={"Income Support"} onToggle={()=> handleToggle(benefit.IncomeSupport)} />
+                <Toggle title={"Universal Credit (UC)"} id={benefit.UC} />
+                <Toggle title={"Jobseeker's Allowance (JSA)"} id={benefit.JSA} />
+                <Toggle title={"Employment and Support Allowance (ESA)"} id={benefit.ESA} />
+                <Toggle title={"Pension Credit"} id={benefit.Pension} />
+                <Toggle title={"Personal Independence Payment (PIP)"} id={benefit.PIP} />
+                <Toggle title={"Income Support"} id={benefit.IncomeSupport} />
             </div>
-            <div className="next-step-button"></div>
-        </div>
+            <div className="next-step-button">
+                <input type="submit" value="Submit" />
+            </div>
+        </form>
     );
 };
