@@ -12,7 +12,7 @@ import GetStarted from '../../public/images/get_started.png'
 
 export default function Home({searchParams}:{searchParams:{postCode?:string}}) {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start bg-white text-black p-2">
+    <main className="flex min-h-screen flex-col items-center justify-start bg-white text-black p-3">
       <div className="text-[#28D] font-bold">
         <p>Get what you&apos;re entitled to</p>
         <p>Get connected</p>

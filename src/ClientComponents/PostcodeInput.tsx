@@ -17,7 +17,7 @@ export default function PostcodeInput({pagePostcode}:{
   return <form {...{onSubmit}}>
     <input type="text"
            name="postcode"
-           className="rounded text-black px-2 py-1"
+           className="rounded text-black px-2 py-1 border"
            defaultValue={pagePostcode} />
   </form>
 }

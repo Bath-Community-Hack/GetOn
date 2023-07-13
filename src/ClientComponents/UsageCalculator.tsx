@@ -6,6 +6,7 @@ import useDerivedState from '../useDerivedState'
 
 import fullPerson from '../../public/images/Figure_fill.png'
 import emptyPerson from '../../public/images/Figure_blank.png'
+import info from '../../public/images/info.png'
 
 interface UsageCalculatorProps {
     usage: number
@@ -15,7 +16,7 @@ interface UsageCalculatorProps {
 function PeopleSelector({people, setPeople}:{
     people: number, setPeople:(p:number)=>void
 }) {
-    return <div className="flex items-center max-w-[240px] justify-between">
+    return <div className="flex my-2 items-center max-w-[240px] justify-between">
     <div className="flex justify-start">
     {[...Array(5)].map((_,i)=>(
         <button key={i}
@@ -96,11 +97,23 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
 
     return (
         <div className="w-fit">
-            <div className="text-[#28D] text-lg font-bold">
-                Who Will Use The Internet?
+            <div className="flex flex-row items-center">
+                <div className="text-[#28D] text-lg leading-5 font-bold flex-grow">
+                    How many people live in this household?
+                </div>
+                <div className="w-8 ms-2 flex-none">
+                    <Image src={info} alt="info"/>
+                </div>
             </div>
-            <p>Total number of people</p>
             <PeopleSelector people={total} setPeople={setTotalConstrained}/>
+            <div className="flex flex-row items-center mb-2">
+                <div className="text-[#28D] text-lg leading-5 font-bold flex-grow">
+                    And what do they use the internet for?
+                </div>
+                <div className="w-8 ms-2 flex-none">
+                <Image src={info} alt="info"/>
+                </div>
+            </div>
             <p>Streaming Music / Movies</p>
             <PeopleSelector people={streaming} setPeople={setAndSyncTotal(setStreaming)}/>
             <p>Social Media / Browsing</p>
@@ -111,7 +124,7 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
             <PeopleSelector people={gaming} setPeople={setAndSyncTotal(setGaming)}/>
 
             <div className="w-full mt-3 border-b border-[#25A]"/>
-            <div className="text-center">
+            <div className="text-center mt-2">
                 <div className="font-extrabold text-[#25A] text-xl">
                     Your peak usage:
                 </div>

@@ -88,8 +88,8 @@ export default forwardRef(function PostcodeInputLive({submit}: {
 
   return <>
     <div className={
-      "flex flex-row"
-      +" mt-2 rounded-3xl text-center shadow-inner border"
+      "flex flex-row p-1"
+      +" mt-2 rounded-3xl text-center border"
       +" w-full shadow-[inset_2px_2px_3px_#888]"
       +(postcodeValid === false ? " outline outline-red-500"
       : (postcodeValid === true ? " outline outline-green-500"
