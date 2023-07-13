@@ -99,11 +99,9 @@ const queryTemplate = {
 
 type CTMResult = any[] | { error: string }
 
-export async function getCTMDeals(
-  postcode: string = ''
-): Promise<CTMResult> {
-  const deals = []
-
+export async function initialCTMDealsSlashPostcodeValidation(
+  postcode: string
+): Promise<{data:any[],paginatorInfo:{lastPage:number}}|{error:string}> {
   queryTemplate.variables.postcode = postcode
 
   const res =
@@ -116,10 +114,27 @@ export async function getCTMDeals(
     return { error: 'Please enter a valid postcode' }
   }
 
-  deals.push(...res.data.deals.data)
+  return res.data.deals
+}
+
+export async function getCTMDeals(
+  postcode: string = ''
+): Promise<CTMResult> {
+  const deals = []
+
+  queryTemplate.variables.postcode = postcode
+
+  const initialDeals =
+    await initialCTMDealsSlashPostcodeValidation(postcode)
+
+  if ('error' in initialDeals) {
+    return initialDeals
+  }
+
+  deals.push(...initialDeals.data)
 
   deals.push(...(await Promise.all(
-    [...Array(res.data.deals.paginatorInfo.lastPage)]
+    [...Array(initialDeals.paginatorInfo.lastPage)]
       .slice(1)
       .map(async (_,i)=>{
         queryTemplate.variables.page = i
