@@ -79,7 +79,7 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
             usage += num * coeff
             remaining -= num
         }
-        return usage
+        return usage * 0.75
     }
 
     useEffect(() => {
@@ -133,7 +133,7 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
                         {props.usage}
                     </span>
                     <div className="w-3" />
-                    <span className="font-bold">Megabits <p>/ second</p></span>
+                    <span className="font-bold">Megabytes <p>/ second</p></span>
                 </div>
             </div>
         </div>
