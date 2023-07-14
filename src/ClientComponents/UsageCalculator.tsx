@@ -74,10 +74,19 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
         orderedCoeffs.sort(([_,a],[__,b]) => b-a)
         let usage = 0
         let remaining = total
+        let activity = 0
         for (const [key,coeff] of orderedCoeffs) {
             const num = Math.min(remaining,people[key])
             usage += num * coeff
             remaining -= num
+            if (remaining === 0 && activity === 0) {
+                activity = 1
+                remaining = total
+                // minus num because num people are already doing this activity and can't do it twice
+                const secondnum = Math.min(total, people[key]) - num
+                usage += secondnum * coeff
+                remaining -= secondnum
+            }
         }
         return usage
     }
