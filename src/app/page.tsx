@@ -25,9 +25,11 @@ export default function Home({searchParams}:{searchParams:{postCode?:string}}) {
       <div className="flex flex-col sm:flex-row items-center p-2">
         <Image className="w-full max-w-sm" alt="GetOn logo" src={GetOnLogo}/>
         <span className="mx-3 w-fit text-sm font-bold whitespace-nowrap">powered by</span>
+        <a href="https://techforgoodsw.org.uk/">
         <Image className="w-10/12 my-2 max-w-sm"
                alt="Tech4Good South West logo"
                src={Tech4Good} />
+        </a>
       </div>
       <div className="text-sm">
         <p className="mb-3">
