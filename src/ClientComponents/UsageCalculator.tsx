@@ -139,7 +139,7 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
                 </div>
                 <div className="flex items-center justify-center mt-2">
                     <span className="font-extrabold text-[#1C75BC] text-5xl">
-                        {props.usage.toFixed(1)}
+                        {+parseFloat(String(props.usage)).toFixed(1)}
                     </span>
                     <div className="w-3" />
                     <span className="font-bold">Megabytes <p>/ second</p></span>
