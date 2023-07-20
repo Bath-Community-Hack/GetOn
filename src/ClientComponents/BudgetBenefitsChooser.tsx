@@ -9,7 +9,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Benefit } from "@/synthesis/all-deals-types"
 
-const budgets = [0,10,15,20]
+const budgets = [0,12,15,20]
 
 export default function BudgetBenefitsChooser({benefitOrder}:{
   benefitOrder: Benefit[]
