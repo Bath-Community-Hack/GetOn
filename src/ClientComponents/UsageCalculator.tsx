@@ -7,11 +7,8 @@ import useDerivedState from '../useDerivedState'
 import fullPerson from '../../public/images/Figure_fill.png'
 import emptyPerson from '../../public/images/Figure_blank.png'
 import info from '../../public/images/info.png'
-
-interface UsageCalculatorProps {
-    usage: number
-    setUsage: (mbps: number) => void
-}
+import arrow from '../../public/images/arrow.png'
+import { useRouter } from "next/navigation"
 
 function PeopleSelector({people, setPeople}:{
     people: number, setPeople:(p:number)=>void
@@ -44,8 +41,12 @@ const coefficients = {
     gaming: 6
 }
 
-const UsageCalculator = (props: UsageCalculatorProps) => {
+const UsageCalculator = ({searchParams}:{
+    searchParams:Record<string,string>
+}) => {
+    const router = useRouter()
 
+    const [usage, setUsage] = useState(0)
     const [total, setTotal] = useState(0)
     const [people, setPeople] = useState<Record<string,number>>({
         streaming: 0,
@@ -92,7 +93,7 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
     }
 
     useEffect(() => {
-        props.setUsage(calculateUsage(people, total))
+        setUsage(calculateUsage(people, total))
     }, [people, total])
 
     function setAndSyncTotal(f: (n:number) => void) {
@@ -105,6 +106,7 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
     }
 
     return (
+        <>
         <div className="w-fit mt-3">
             <div className="flex flex-row items-center">
                 <div className="text-[#1C75BC] text-lg leading-5 font-bold flex-grow">
@@ -139,13 +141,22 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
                 </div>
                 <div className="flex items-center justify-center mt-2">
                     <span className="font-extrabold text-[#1C75BC] text-5xl">
-                        {+parseFloat(String(props.usage)).toFixed(1)}
+                        {+parseFloat(String(usage)).toFixed(1)}
                     </span>
                     <div className="w-3" />
                     <span className="font-bold">Megabits <p>/ second</p></span>
                 </div>
             </div>
         </div>
+        <button className="h-16 text-lg text-blue-800 underline hover:text-blue-400 cursor-pointer"
+                onClick={()=>router.push('/results?'+(
+                    new URLSearchParams({...searchParams,usage:String(usage)})
+                ))}
+        >
+            <Image src={arrow} alt="right arrow" className="w-8"/>
+        </button>
+
+        </>
     )
 
 }
