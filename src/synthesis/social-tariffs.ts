@@ -1,4 +1,5 @@
-import { OfcomSocialTariff, ofcomSocialTariffs } from '../3rd-party-api-calls/ofcom'
+import { OfcomSocialTariff } from '@/3rd-party-api-calls/ofcom-types'
+import { ofcomSocialTariffs } from '../3rd-party-api-calls/ofcom'
 
 const ctmProviderToSocialTariffSearchPattern: Record<string,string> = {
   "Shell Energy Broadband": "Shell",
