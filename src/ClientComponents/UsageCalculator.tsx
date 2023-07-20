@@ -88,7 +88,7 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
                 remaining -= secondnum
             }
         }
-        return usage * 0.75
+        return usage * 8 * 0.75
     }
 
     useEffect(() => {
@@ -142,7 +142,7 @@ const UsageCalculator = (props: UsageCalculatorProps) => {
                         {+parseFloat(String(props.usage)).toFixed(1)}
                     </span>
                     <div className="w-3" />
-                    <span className="font-bold">Megabytes <p>/ second</p></span>
+                    <span className="font-bold">Megabits <p>/ second</p></span>
                 </div>
             </div>
         </div>

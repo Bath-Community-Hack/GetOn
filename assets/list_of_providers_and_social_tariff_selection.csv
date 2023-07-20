@@ -1,0 +1,12 @@
+,,,,"Qualifying benefit list",,,,,
+"Provider Social tariff link","Provider name","ofCOM: Social Tariff Name",mbps,"Universal Credit","Jobseeker’s Allowance","Pension Credit","Income Support","Personal Independence Payments","Disability benefit"
+https://www.vodafone.co.uk/broadband/essentials-broadband,Vodafone,"Vodafone Essentials Broadband",38,Y,Y,Y,Y,Y,N
+https://www.bt.com/exp/broadband/home-essentials/broadband/home-essentials,BT,"BT Home Essentials",36,Y,N,N,Y,N,N
+https://www.bt.com/exp/broadband/home-essentials/broadband/home-essentials,BT,"BT Home Essentials 2",67,Y,N,N,Y,N,N
+https://www.sky.com/help/articles/sky-social-tariff,Sky,"Sky Broadband Basics",35,Y,N,Y,Y,N,N
+https://help.nowtv.com/article/now-broadband-basics,NOW,"NOW Broadband Basics",36,Y,N,Y,Y,N,N
+https://www.hyperoptic.com/broadband/home/price-plans/social-tariff-broadband/,Hyperoptic,"Hyperoptic Fair Fibre 50",50,N,N,N,N,Y,N
+https://www.hyperoptic.com/broadband/home/price-plans/social-tariff-broadband/,Hyperoptic,"Hyperoptic Fair Fibre 150",150,N,N,N,N,Y,N
+https://www.virginmedia.com/broadband/low-income-families,"Virgin Media","Virgin Media Essential Broadband",15,Y,N,Y,Y,N,N
+https://www.virginmedia.com/broadband/low-income-families,"Virgin Media","Virgin Media Essential Broadband Plus",54,Y,N,Y,Y,N,N
+"https://www.kcom.com/home/packages/flex/#:~:text=What%20is%20Flex%3F,a%2030%20day%20rolling%20contract*",KCOM,"KCOM Full Fibre Flex",30,Y,Y,Y,Y,Y,N
