@@ -8,12 +8,11 @@ export async function OfcomTestTable() {
   }
 
   return <>{
-    socialTariffs.map(({name, price, speed, available})=>
+    socialTariffs.map(({name, price, speed})=>
       <div key={name}>
         {name}
-        {" | "}{price}
+        {" | "}{price.pounds}
         {" | "}{speed}
-        {" | "}{available}
       </div>)
   }</>
 }
