@@ -9,6 +9,7 @@ export const manuallyScrapedSocialTariffsData =
 
 import { benefitOrder } from '@/synthesis/all-deals'
 import { OfcomRegion, ofcomRegions } from '@/synthesis/all-deals-types'
+import path from 'path'
 
 function getRegionsFromRawString(rawRegions: string) {
   const inParens = rawRegions.match(/\((.*)\)/)
@@ -64,7 +65,7 @@ export function appendManuallyScrapedData(
 }
 
 export function getManuallyScrapedSocialTariffsData(): string[][] {
-  return csvParse(readFileSync('assets/list_of_providers_and_social_tariff_selection.csv'))
+  return csvParse(readFileSync(path.join(process.cwd(), 'assets', 'list_of_providers_and_social_tariff_selection.csv')))
 }
 
 function parsePrice(s: string): {
