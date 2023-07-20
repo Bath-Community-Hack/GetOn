@@ -14,7 +14,9 @@ export default async function filteredDeals(
   }
 
   return deals.filter(deal =>{
-    console.log(deal.regions)
+    console.log(deal.name)
+    console.log(benefits)
+    console.log(deal.benefits)
 
     if (regions && regions.length > 0 && regions[0].length > 0 &&
       !deal.regions.some(regions.includes.bind(regions))) {
@@ -24,7 +26,7 @@ export default async function filteredDeals(
       budget &&
       deal.price.pounds*100+deal.price.pence > budget*100
     ) return false
-    if (benefits && benefits.length > 0 && benefits[0].length > 0
+    if (benefits
       && deal.benefits.length > 0
       && !deal.benefits.some(benefits.includes.bind(benefits)))
     {
