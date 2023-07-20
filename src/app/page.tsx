@@ -11,6 +11,7 @@ import i from '../../public/images/info.png'
 import GetStarted from '../../public/images/get_started.png'
 
 import localFont from 'next/font/local'
+import { benefitOrder } from '@/synthesis/all-deals'
 
 const gotham = localFont({src: '../../public/fonts/Gotham-Font/GothamMedium.ttf'})
 
@@ -40,24 +41,17 @@ export default function Home({searchParams}:{searchParams:{postCode?:string}}) {
           be eligible for a discounted broadband package known
           as a social tariff:
         </p>
-        <p>
-          <ul className="list-disc ps-4">
-            <li>Universal credit</li>
-            <li>Jobseekers allowance</li>
-            <li>Employment and support allowance</li>
-            <li>Pension credit</li>
-            <li>Income support</li>
-            <li>Personal Independence Payments</li>
-            <li>Disability benefit</li>
-          </ul>
-        </p>
+        <ul className="list-disc ps-4">
+          {benefitOrder.map(
+            benefit=><li key={benefit}>{benefit}</li>)}
+        </ul>
         <p className="mt-2">
           The{" "}
           <a className="text-blue-800 hover:text-blue-400 underline"
                  href="https://www.ofcom.org.uk/phones-telecoms-and-internet/advice-for-consumers/costs-and-billing/social-tariffs">
           Ofcom website
           </a>{" "}
-          has a long list of the social tariffs on offer from
+          has a list of the social tariffs on offer from
           different internet service providers (ISPs).
         </p>
         <p className="mt-2">

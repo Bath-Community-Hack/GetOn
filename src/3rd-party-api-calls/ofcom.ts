@@ -7,29 +7,69 @@ import { OfcomSocialTariff, OfcomSocialTariffOfcomPageData } from './ofcom-types
 export const manuallyScrapedSocialTariffsData =
   getManuallyScrapedSocialTariffsData()
 
+import { benefitOrder } from '@/synthesis/all-deals'
+import { OfcomRegion, ofcomRegions } from '@/synthesis/all-deals-types'
+
+function getRegionsFromRawString(rawRegions: string) {
+  const inParens = rawRegions.match(/\((.*)\)/)
+  const useParens = inParens && inParens[1] !== 'various locations'
+  const matchString = useParens ? inParens[1] : rawRegions
+  const sortedRegions = ofcomRegions
+    .filter(region=>!/^\d+$/.test(region)).sort(
+    (a,b)=>b.length-a.length)
+  return sortedRegions.reduce(
+    (accum, region) => {
+      const match = matchString.indexOf(region)
+      if (match > -1) {
+        if (!accum.mask[match]) {
+          const newMask = [...accum.mask]
+          for (let i = 0; i < region.length; ++i) {
+            newMask[match+i] = true
+          }
+          return {
+            mask: newMask,
+            regions: [...accum.regions, region]
+          }
+        } else {
+          return accum
+        }
+      }
+      return accum
+    },
+    { mask: Array(sortedRegions.length).fill(false),
+      regions: [] as OfcomRegion[]}
+    ).regions
+}
+
 export function appendManuallyScrapedData(
-  {name, href, price}: OfcomSocialTariffOfcomPageData
+  {name, href, price, rawRegions}: OfcomSocialTariffOfcomPageData
 ): OfcomSocialTariff
 {
   const scrapedTariffData = manuallyScrapedSocialTariffsData.find(
     entry => entry[2] === name)
 
   if (scrapedTariffData === undefined) {
-    return {name, href, price, speed: 0, regions: [], benefits: []}
+    return {
+      name, href, price, speed: 0,
+      regions: getRegionsFromRawString(rawRegions), benefits: []
+    }
   }
 
   const speed = Number(scrapedTariffData[3])
 
-  return {name, href, price, speed, regions: [], benefits: []}
+  return {name, href, price, speed,
+          regions: getRegionsFromRawString(rawRegions),
+          benefits: benefitOrder.filter((_,i) =>
+            scrapedTariffData[i+4].startsWith('Y'))}
 }
 
-export function getManuallyScrapedSocialTariffsData(): any[] {
+export function getManuallyScrapedSocialTariffsData(): string[][] {
   return csvParse(readFileSync('assets/list_of_providers_and_social_tariff_selection.csv'))
 }
 
 function parsePrice(s: string): {
-  pounds: bigint,
-  pence: bigint
+  pounds: number,
+  pence: number
 } {
   const poundIndex = s.indexOf('£')
 
@@ -41,15 +81,15 @@ function parsePrice(s: string): {
 
   if (dotIndex === -1) {
     return {
-      pounds: BigInt(parseInt(numberString)),
-      pence: BigInt(0)
+      pounds: parseInt(numberString),
+      pence: 0
     }
   } else {
     const poundsString = numberString.slice(0,dotIndex)
     const penceString = numberString.slice(dotIndex+1)
     return {
-      pounds: BigInt(parseInt(poundsString)),
-      pence: BigInt(parseInt(penceString))
+      pounds: parseInt(poundsString),
+      pence: parseInt(penceString)
     }
   }
 }
@@ -75,8 +115,9 @@ export async function ofcomSocialTariffs()
     const name = a?.childNodes[0].innerText as string
     const price = parsePrice(tds[1].innerText)
     //const speed = tds[2].innerText
-    //const available = tds[3].innerText
+    const rawRegions = tds[3].innerText
 
-    return appendManuallyScrapedData({ name, href, price })
+    return appendManuallyScrapedData(
+      { name, href, price, rawRegions })
   })
 }

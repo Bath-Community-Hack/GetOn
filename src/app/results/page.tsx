@@ -4,10 +4,11 @@ import results from '../../../public/images/results.png'
 import localFont from 'next/font/local'
 import QuizTemplate from '@/ServerComponents/QuizTemplate'
 
-import { Deal, getAllDeals } from '@/synthesis/all-deals'
+import { getAllDeals } from '@/synthesis/all-deals'
 
 import GoToWebsite from '../../../public/images/go_to_website.png'
 import filteredDeals from '@/filtering/filter-deals'
+import { Benefit, Deal, OfcomRegion } from '@/synthesis/all-deals-types'
 
 const gothamBold = localFont({src: '../../../public/fonts/Gotham-Font/GothamBold.ttf'})
 
@@ -55,14 +56,23 @@ function Item({item, first}:{item:Deal, first:boolean}) {
 }
 
 export default async function Results({searchParams:{
-  usage
-}}: {searchParams:{usage:number}}) {
+  usage, budget, benefits: benefitsString, regions: regionsString
+}}: {searchParams:{
+  usage: number,
+  budget: number,
+  benefits: string,
+  regions: string
+}}) {
+  const benefits = benefitsString?.split(',') as Benefit[]
+  const regions = regionsString?.split(',') as OfcomRegion[]
+
   const deals = await filteredDeals(
-    '',{pounds:BigInt(0),pence:BigInt(0)},[],usage)
+    undefined,budget,benefits,usage)
 
   return <QuizTemplate>
     {'error' in deals
     ? 'An error occurred fetching the offers'
-    : deals.map((deal, id) => <Item key={id} item={deal} first={id === 0}/>)}
+    : deals.map((deal, id) =>
+      <Item key={id} item={deal} first={id === 0}/>)}
   </QuizTemplate>
 }

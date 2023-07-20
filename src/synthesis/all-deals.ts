@@ -7,7 +7,7 @@ import { Benefit, Deal } from './all-deals-types'
 // discard what's outside the parentheses
 
 export const benefitOrder: Benefit[] =
-  manuallyScrapedSocialTariffsData[1].slice(4)
+  manuallyScrapedSocialTariffsData[1].slice(4) as Benefit[]
 
 export async function getAllDeals(postcode: string = '')
 : Promise<Deal[]|{error:string}> {

@@ -6,8 +6,8 @@ export type OfcomSocialTariffOfcomPageData = {
   href: string,
   name: string,
   price: {
-    pounds: bigint,
-    pence: bigint
+    pounds: number,
+    pence: number
   },
   rawRegions: string
 }

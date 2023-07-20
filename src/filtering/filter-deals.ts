@@ -1,10 +1,11 @@
-import { Benefit, OfcomRegion, getAllDeals } from '../synthesis/all-deals'
+import { Benefit, OfcomRegion } from '@/synthesis/all-deals-types'
+import { getAllDeals } from '../synthesis/all-deals'
 
 export default async function filteredDeals(
-  regions: OfcomRegion[],
-  budget: { pounds: bigint, pence: bigint },
-  benefits: Benefit[],
-  speed: number
+  regions?: OfcomRegion[],
+  budget?: number,
+  benefits?: Benefit[],
+  usage?: number
 ) {
   const deals = await getAllDeals()
 
@@ -13,9 +14,23 @@ export default async function filteredDeals(
   }
 
   return deals.filter(deal =>{
-    // FIXME country
-    // FIXME benefits
-    if (deal.speed < speed) return false
+    console.log(deal.regions)
+
+    if (regions && regions.length > 0 && regions[0].length > 0 &&
+      !deal.regions.some(regions.includes.bind(regions))) {
+      return false
+    }
+    if (
+      budget &&
+      deal.price.pounds*100+deal.price.pence > budget*100
+    ) return false
+    if (benefits && benefits.length > 0 && benefits[0].length > 0
+      && deal.benefits.length > 0
+      && !deal.benefits.some(benefits.includes.bind(benefits)))
+    {
+      return false
+    }
+    if (usage && deal.speed < usage) return false
 
     return true
   })
