@@ -5,9 +5,7 @@ export type OfcomSocialTariff = Deal
 export type OfcomSocialTariffOfcomPageData = {
   href: string,
   name: string,
-  price: {
-    pounds: number,
-    pence: number
-  },
+  speed: string,
+  price: string,
   rawRegions: string
 }

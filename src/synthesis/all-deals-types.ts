@@ -34,7 +34,7 @@ export type Deal = {
     pounds: number,
     pence: number
   },
-  speed: number,
+  speed: number | 'mobile',
   regions: OfcomRegion[],
   benefits: Benefit[]
 }

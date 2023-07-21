@@ -11,8 +11,9 @@ import { Benefit } from "@/synthesis/all-deals-types"
 
 const budgets = [0,12,15,20]
 
-export default function BudgetBenefitsChooser({benefitOrder}:{
-  benefitOrder: Benefit[]
+export default function BudgetBenefitsChooser({benefitOrder, postcode}:{
+  benefitOrder: Benefit[],
+  postcode: string
 }) {
   const router = useRouter()
 
@@ -53,7 +54,7 @@ export default function BudgetBenefitsChooser({benefitOrder}:{
     </div>
     <div className="flex flex-row items-center w-full mb-2">
       <div className="font-bold text-[#1C75BC] text-lg text-left w-full flex-grow leading-5">
-        Do you receive any of these benefits?
+        Which of these apply to you?
       </div>
       <div className="w-8 ms-2 flex-none">
         <Image src={info} alt="info"/>
@@ -62,7 +63,7 @@ export default function BudgetBenefitsChooser({benefitOrder}:{
     {benefitOrder.map((benefit, i)=>(
       <div key={i} className="my-1 w-full flex flex-row justify-between items-center">
         {benefit}
-        <div className="h-7 w-7 rounded-xl shadow-[inset_2px_2px_3px_#888] relative cursor-pointer"
+        <div className="h-7 w-7 rounded-xl shadow-[inset_2px_2px_3px_#888] relative cursor-pointer flex-none ms-4"
            style={{border:'2px solid #1C75BC'}}
            onClick={()=>{
              selectedBenefits[i] = !selectedBenefits[i]
@@ -80,6 +81,7 @@ export default function BudgetBenefitsChooser({benefitOrder}:{
     </div>
     <button className="mt-4" onClick={() => {
       const searchParams: Record<string,string> = {
+        postCode: postcode,
         budget: String(budgets[budgetId]),
         benefits: benefitOrder.filter((_,i)=>selectedBenefits[i]).join(',')
       }

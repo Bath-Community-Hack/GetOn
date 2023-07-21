@@ -18,6 +18,7 @@ export default function Location() {
     e.preventDefault()
     if (postcodeRef.current?.postcodeValid()) {
       const data = new FormData(e.target as HTMLFormElement)
+      // FIXME get regions from api and add those instead
       router.push(
         '/budget?postCode='+data.get('postcode')
       )

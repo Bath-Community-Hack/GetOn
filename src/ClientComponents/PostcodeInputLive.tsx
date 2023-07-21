@@ -9,10 +9,16 @@ async function validatePostcode(
   inputRef: RefObject<HTMLInputElement>,
   errorDisplayTimeoutHandle: ReturnType<typeof setTimeout>|undefined,
   setErrorDisplayTimeoutHandle: (h: ReturnType<typeof setTimeout>|undefined) => void,
-  setPostcodeValid: (b: boolean) => void,
+  setPostcodeValid: (b: boolean|undefined) => void,
   setPostcodeError: (e: string) => void,
 ) {
   const postcode = inputRef.current?.value ?? ''
+
+  if (postcode.length === 0) {
+    setPostcodeValid(undefined)
+    setPostcodeError('')
+    return
+  }
 
   const data = await axios.post(
     '/api/validate-postcode',

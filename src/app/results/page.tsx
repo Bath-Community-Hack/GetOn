@@ -37,6 +37,7 @@ function Item({item, first}:{item:Deal, first:boolean}) {
       </div>
     </div>
     <div className="flex flex-col justify-around items-center">
+      <div>up to</div>
       <div className={
         "text-[#1C75BC] text-3xl "
         +gothamBold.className

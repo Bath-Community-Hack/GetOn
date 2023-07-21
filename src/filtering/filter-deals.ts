@@ -14,12 +14,14 @@ export default async function filteredDeals(
   }
 
   return deals.filter(deal =>{
+    /*
     console.log(deal.name)
     console.log(benefits)
     console.log(deal.benefits)
+    */
 
     if (regions && regions.length > 0 && regions[0].length > 0 &&
-      !deal.regions.some(regions.includes.bind(regions))) {
+      !deal.regions.some(region => regions.includes(region))) {
       return false
     }
     if (
@@ -28,11 +30,13 @@ export default async function filteredDeals(
     ) return false
     if (benefits
       && deal.benefits.length > 0
-      && !deal.benefits.some(benefits.includes.bind(benefits)))
+      && !deal.benefits.some(
+        benefit => benefits.includes(benefit)))
     {
       return false
     }
-    if (usage && deal.speed < usage) return false
+    if (usage && deal.speed !== 'mobile'
+      && deal.speed < usage) return false
 
     return true
   })

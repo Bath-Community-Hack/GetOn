@@ -3,10 +3,10 @@ import Image from "next/image";
 import Step2of3 from '../../../public/images/step_2of3.png'
 import { useRouter } from "next/navigation";
 
-import { benefitOrder } from '../../synthesis/all-deals'
+import { getTopLevelBenefits } from '../../synthesis/all-deals'
 import BudgetBenefitsChooser from "@/ClientComponents/BudgetBenefitsChooser";
 
-export default function Budget(
+export default async function Budget(
   {searchParams:{postCode}}:{searchParams:{postCode:string}}
 ) {
   //const router = useRouter()
@@ -15,6 +15,9 @@ export default function Budget(
     <Image src={Step2of3} alt="Step 2 of 3"
       className="w-7/12 max-w-[220px] mb-4"
       />
-    <BudgetBenefitsChooser {...{benefitOrder}} />
+    <BudgetBenefitsChooser {...{
+        benefitOrder:await getTopLevelBenefits(),
+        postcode: postCode
+      }} />
   </QuizTemplate>
 }
