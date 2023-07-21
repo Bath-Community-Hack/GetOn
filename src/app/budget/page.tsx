@@ -7,7 +7,7 @@ import { getTopLevelBenefits } from '../../synthesis/all-deals'
 import BudgetBenefitsChooser from "@/ClientComponents/BudgetBenefitsChooser";
 
 export default async function Budget(
-  {searchParams:{postCode}}:{searchParams:{postCode:string}}
+  {searchParams}:{searchParams:any}
 ) {
   //const router = useRouter()
 
@@ -17,7 +17,7 @@ export default async function Budget(
       />
     <BudgetBenefitsChooser {...{
         benefitOrder:await getTopLevelBenefits(),
-        postcode: postCode
+        searchParams
       }} />
   </QuizTemplate>
 }

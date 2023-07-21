@@ -3,12 +3,14 @@
 import PostcodeInputLive from "@/ClientComponents/PostcodeInputLive"
 import QuizTemplate from "@/ServerComponents/QuizTemplate"
 import { useRouter } from "next/navigation"
-import { FormEvent, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import i from '../../../public/images/info.png'
 import Image from "next/image"
 import Step1of3 from '../../../public/images/step_1of3.png'
 
-export default function Location() {
+export default function Location({searchParams}:{
+  searchParams:any
+}) {
   const router = useRouter()
 
   const postcodeRef =
@@ -18,12 +20,22 @@ export default function Location() {
     e.preventDefault()
     if (postcodeRef.current?.postcodeValid()) {
       const data = new FormData(e.target as HTMLFormElement)
-      // FIXME get regions from api and add those instead
-      router.push(
-        '/budget?postCode='+data.get('postcode')
+      localStorage.setItem('next', '1')
+      router.replace(
+        '/location?'+(new URLSearchParams({
+          regions: postcodeRef.current?.regions(),
+          postCode: data.get('postcode')
+        }))
       )
     }
   }
+
+  useEffect(() => {
+    if (localStorage.getItem('next')) {
+      localStorage.removeItem('next')
+      router.push('/budget?'+(new URLSearchParams(searchParams)))
+    }
+  })
 
   const submitRef = useRef<HTMLInputElement>(null)
 

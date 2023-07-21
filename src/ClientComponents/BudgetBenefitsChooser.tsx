@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import info from '../../public/images/info.png'
 import tick from '../../public/images/tick_blue.png'
 import arrow from '../../public/images/arrow.png'
@@ -11,16 +11,30 @@ import { Benefit } from "@/synthesis/all-deals-types"
 
 const budgets = [0,12,15,20]
 
-export default function BudgetBenefitsChooser({benefitOrder, postcode}:{
+export default function BudgetBenefitsChooser(
+  {benefitOrder, searchParams}:{
   benefitOrder: Benefit[],
-  postcode: string
+  searchParams: any
 }) {
   const router = useRouter()
 
-  const [budgetId, setBudgetId] = useState(0)
+  const [budgetId, setBudgetId] = useState(
+    searchParams.budget !== undefined
+    ? budgets.indexOf(Number(searchParams.budget)) : 0)
 
-  const [selectedBenefits, setSelectedBenefits] =
-    useState(Array(benefitOrder.length).fill(false))
+  const [selectedBenefits, setSelectedBenefits] = useState(
+    searchParams.benefits !== undefined
+    ? benefitOrder.map(
+      benefit => searchParams.benefits.includes(benefit))
+    : Array(benefitOrder.length).fill(false)
+  )
+
+  useEffect(() => {
+    if (localStorage.getItem('next')) {
+      localStorage.removeItem('next')
+      router.push('/usage?'+(new URLSearchParams(searchParams)).toString())
+    }
+  })
 
   return <>
     <div>
@@ -80,12 +94,13 @@ export default function BudgetBenefitsChooser({benefitOrder, postcode}:{
       </div>))}
     </div>
     <button className="mt-4" onClick={() => {
-      const searchParams: Record<string,string> = {
-        postCode: postcode,
+      localStorage.setItem('next','1')
+      const queryString = new URLSearchParams({
+        ...searchParams,
         budget: String(budgets[budgetId]),
         benefits: benefitOrder.filter((_,i)=>selectedBenefits[i]).join(',')
-      }
-      router.push('/usage?'+(new URLSearchParams(searchParams)).toString())
+      }).toString()
+      router.replace('/budget?'+queryString)
     }}>
         <Image src={arrow} alt="right arrow" className="w-8"/>
     </button>

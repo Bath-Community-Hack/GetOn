@@ -4,6 +4,7 @@ import axios from "axios"
 import { ChangeEvent, Ref, RefObject, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react"
 import arrow from '../../public/images/arrow.png'
 import Image from "next/image"
+import { useSearchParams } from "next/navigation"
 
 async function validatePostcode(
   inputRef: RefObject<HTMLInputElement>,
@@ -11,6 +12,7 @@ async function validatePostcode(
   setErrorDisplayTimeoutHandle: (h: ReturnType<typeof setTimeout>|undefined) => void,
   setPostcodeValid: (b: boolean|undefined) => void,
   setPostcodeError: (e: string) => void,
+  setRegions: (regions: string[]) => void
 ) {
   const postcode = inputRef.current?.value ?? ''
 
@@ -35,10 +37,16 @@ async function validatePostcode(
       setPostcodeValid(false)
       setErrorDisplayTimeoutHandle(
         setTimeout(
-          ()=>setPostcodeError(data.error), 2000))
+          ()=>{
+            if (postcode === inputRef.current?.value) {
+              setPostcodeError(data.error)
+            }
+          }, 2000))
+      setRegions([])
     } else {
       setPostcodeValid(true)
       setPostcodeError('')
+      setRegions(data.regions)
     }
   }
 }
@@ -46,7 +54,6 @@ async function validatePostcode(
 export default forwardRef(function PostcodeInputLive({submit}: {
   submit: RefObject<HTMLInputElement>
 }, ref) {
-
   const [timeoutHandle, setTimeoutHandle] =
     useState<ReturnType<typeof setTimeout>|undefined>(undefined)
   const [errorDisplayTimeoutHandle, setErrorDisplayTimeoutHandle] =
@@ -57,16 +64,29 @@ export default forwardRef(function PostcodeInputLive({submit}: {
   const [postcodeError, setPostcodeError] =
     useState<string|undefined>(undefined)
 
+  const [regions, setRegions] = useState<string[]>([])
+
   const inputRef = useRef<HTMLInputElement>(null)
+
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    if (searchParams.get('postCode') && inputRef.current) {
+      inputRef.current.value = searchParams.get('postCode') as string
+    }
+  }, [])
 
   useImperativeHandle(ref, () => ({
     postcodeValid:
     () => postcodeValid
-     && (inputRef.current?.value.length ?? 0) > 0
+     && (inputRef.current?.value.length ?? 0) > 0,
+    regions: () => regions
   }))
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {
     setPostcodeValid(undefined)
+    setPostcodeError('')
+    setRegions([])
     if (timeoutHandle) {
       clearTimeout(timeoutHandle)
       setTimeoutHandle(undefined)
@@ -77,20 +97,20 @@ export default forwardRef(function PostcodeInputLive({submit}: {
         errorDisplayTimeoutHandle,
         setErrorDisplayTimeoutHandle,
         setPostcodeValid,
-        setPostcodeError
+        setPostcodeError,
+        setRegions
       )
     }, 300))
   }
 
-  /*
   useEffect(() => {validatePostcode(
     inputRef,
     errorDisplayTimeoutHandle,
     setErrorDisplayTimeoutHandle,
     setPostcodeValid,
-    setPostcodeError
+    setPostcodeError,
+    setRegions
   )}, [])
-  */
 
   return <>
     <div className={
@@ -100,7 +120,7 @@ export default forwardRef(function PostcodeInputLive({submit}: {
       +(postcodeValid === false ? " outline outline-red-500"
       : (postcodeValid === true ? " outline outline-green-500"
       : " focus-within:outline focus-within:outline-blue-500"))
-    }>
+    } onClick={()=>inputRef.current?.focus()}>
       <div className="flex-grow flex flex-row items-center justify-center ms-2 my-1">
         <span className="block w-full"><input ref={inputRef}
           name="postcode"
@@ -118,5 +138,9 @@ export default forwardRef(function PostcodeInputLive({submit}: {
       </button>
     </div>
     <div className="text-center mt-1">{postcodeError}</div>
+    {regions.length > 0 &&
+     <div className="text-center text-gray-400">
+       Regions: {regions.join(', ')}
+     </div>}
   </>
 })

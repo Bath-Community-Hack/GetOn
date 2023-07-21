@@ -3,28 +3,28 @@ import { getCTMDeals, getCTMSuppliers, getCTMSuppliersFromDeals } from '../3rd-p
 import { getSocialTariffsFromProviders } from '../synthesis/social-tariffs'
 import { Benefit, Deal, OfcomRegion } from './all-deals-types'
 
-export const onsOfcomRegionCodes: Record<OfcomRegion,string> = {
-  'UK': 'K02000001', // don't think this shows up on within
-  'England': 'E92000001',
-  'Wales': 'W92000004',
-  'Scotland': 'S92000003',
-  'London': 'E12000007',
-  'Cambridgeshire': 'E10000003',
-  'Essex': 'E10000012',
-  'Nottinghamshire': 'E10000024',
-  'Yorkshire': 'E10000023',
-  'Derbyshire': 'E10000007',
-  'Newport': 'W06000022',
-  'South East England': 'E12000008',
-  'Hull': 'E06000010',
-  'East Sussex': 'E10000011',
-  'Kent': 'E10000016',
-  'Lothian': 'S17000012',
-  'South Gloucestershire': 'E06000025',
-  'South West': 'E12000009',
-  'Cornwall': 'E06000052',
-  'Devon': 'E10000008',
-  'Isle of Wight': 'E06000046',
+export const onsOfcomRegionCodes: Record<string,OfcomRegion> = {
+  'K02000001': 'UK', // don't think this shows up on within
+  'E92000001': 'England',
+  'W92000004': 'Wales',
+  'S92000003': 'Scotland',
+  'E12000007': 'London',
+  'E10000003': 'Cambridgeshire',
+  'E10000012': 'Essex',
+  'E10000024': 'Nottinghamshire',
+  'E10000023': 'Yorkshire',
+  'E10000007': 'Derbyshire',
+  'W06000022': 'Newport',
+  'E12000008': 'South East England',
+  'E06000010': 'Hull',
+  'E10000011': 'East Sussex',
+  'E10000016': 'Kent',
+  'S08000024': 'Lothian',
+  'E06000025': 'South Gloucestershire',
+  'E12000009': 'South West',
+  'E06000052': 'Cornwall',
+  'E10000008': 'Devon',
+  'E06000046': 'Isle of Wight',
 }
 
 let benefitOrder: Benefit[] | null = null
