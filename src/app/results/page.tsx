@@ -20,7 +20,7 @@ const gothamBold = localFont({src: '../../../public/fonts/Gotham-Font/GothamBold
 
 function Item({item, first}:{item:Deal, first:boolean}) {
   const regions =
-    window && localStorage.getItem('regions')
+    typeof localStorage !== 'undefined' && localStorage.getItem('regions')
     ? JSON.parse(localStorage.getItem('regions') as string)
     : []
   return <div className="flex-col flex items-center max-w-sm w-full">
@@ -102,19 +102,19 @@ function Item({item, first}:{item:Deal, first:boolean}) {
 
 export default function Results() {
   const regions: OfcomRegion[] | null =
-    window && localStorage.getItem('regions') !== null
+    typeof localStorage !== 'undefined' && localStorage.getItem('regions') !== null
     ? JSON.parse(localStorage.getItem('regions') as string)
     : null
   const budget: number | null =
-    window && localStorage.getItem('budget') !== null
+    typeof localStorage !== 'undefined' && localStorage.getItem('budget') !== null
     ? Number(localStorage.getItem('budget'))
     : null
   const benefits: Benefit[] | null =
-    window && localStorage.getItem('benefits') !== null
+    typeof localStorage !== 'undefined' && localStorage.getItem('benefits') !== null
     ? JSON.parse(localStorage.getItem('benefits') as string)
     : null
   const usage: number | null =
-    window && localStorage.getItem('usage') !== null
+    typeof localStorage !== 'undefined' && localStorage.getItem('usage') !== null
     ? Number(localStorage.getItem('usage'))
     : null
 

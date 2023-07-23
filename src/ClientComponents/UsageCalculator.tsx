@@ -45,14 +45,14 @@ const UsageCalculator = () => {
     const router = useRouter()
 
     const [usage, setUsage] = useState(
-        (window && localStorage.getItem('usage')) ?? 0)
+        (typeof localStorage !== 'undefined' && localStorage.getItem('usage')) ?? 0)
 
     useEffect(() => {
         localStorage.setItem('usage', String(usage))
     }, [usage])
 
     const [people, setPeople] = useState<Record<string,number>>(
-        window && localStorage.getItem('people')
+        typeof localStorage !== 'undefined' && localStorage.getItem('people')
         ? JSON.parse(localStorage.getItem('people') as string) as Record<string,number>
         : {
             streaming: 0,
