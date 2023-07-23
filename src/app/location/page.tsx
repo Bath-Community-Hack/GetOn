@@ -19,27 +19,11 @@ export default function Location({searchParams}:{
   function onSubmit(e: FormEvent) {
     e.preventDefault()
     if (postcodeRef.current?.postcodeValid()) {
-      const data = new FormData(e.target as HTMLFormElement)
-      localStorage.setItem('next', '1')
-      router.replace(
-        '/location?'+(new URLSearchParams({
-          regions: postcodeRef.current?.regions(),
-          postCode: data.get('postcode')
-        }))
-      )
+      router.push('/budget')
     }
   }
 
-  useEffect(() => {
-    if (localStorage.getItem('next')) {
-      localStorage.removeItem('next')
-      router.push('/budget?'+(new URLSearchParams(searchParams)))
-    }
-  })
-
   const submitRef = useRef<HTMLInputElement>(null)
-
-  console.log(submitRef)
 
   return <QuizTemplate>
       In just three quick steps we can find you the best broadband

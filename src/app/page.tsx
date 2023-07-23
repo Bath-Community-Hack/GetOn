@@ -28,16 +28,18 @@ export default async function Home({searchParams}:{searchParams:{postCode?:strin
         <p>Get on with things...</p>
       </div>
       <div className="flex flex-col sm:flex-row items-center p-2">
-        <Image className="w-full max-w-sm" alt="GetOn logo" src={GetOnLogo}/>
+        <Image className="flex-1 w-full max-w-sm" alt="GetOn logo" src={GetOnLogo}/>
         <span className="mx-3 w-fit text-sm font-bold whitespace-nowrap">powered by</span>
-        <a href="https://techforgoodsw.org.uk/">
-        <Image className="w-10/12 my-2 max-w-sm"
+        <a className="flex-1 w-10/12" href="https://techforgoodsw.org.uk/">
+        <Image className="w-full my-2 max-w-sm"
                alt="Tech4Good South West logo"
                src={Tech4Good} />
         </a>
       </div>
       <div className="text-sm">
-        <div className="border border-black rounded-lg p-2">
+        <details className="border border-black rounded-lg p-2 text-black">
+          <summary className="cursor-pointer px-2">Limitations</summary>
+          <div className="border-t border-black mt-2 p-2 pb-1">
           <p className="mb-2 text-black">
             GetOn is a work in progress - that means that while we
             expect the service to be useful <u>right now</u>, the
@@ -71,7 +73,8 @@ export default async function Home({searchParams}:{searchParams:{postCode?:strin
             </a>{" "}
             used by GetOn.
           </p>
-        </div>
+          </div>
+        </details>
         <p className="my-2">
           If you meet any of the following criteria, you may
           be eligible for a discounted broadband package known

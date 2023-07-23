@@ -12,29 +12,35 @@ import { Benefit } from "@/synthesis/all-deals-types"
 const budgets = [0,12,15,20]
 
 export default function BudgetBenefitsChooser(
-  {benefitOrder, searchParams}:{
+  {benefitOrder}:{
   benefitOrder: Benefit[],
-  searchParams: any
 }) {
   const router = useRouter()
 
   const [budgetId, setBudgetId] = useState(
-    searchParams.budget !== undefined
-    ? budgets.indexOf(Number(searchParams.budget)) : 0)
-
-  const [selectedBenefits, setSelectedBenefits] = useState(
-    searchParams.benefits !== undefined
-    ? benefitOrder.map(
-      benefit => searchParams.benefits.includes(benefit))
-    : Array(benefitOrder.length).fill(false)
-  )
+    localStorage.getItem('budget') !== null
+    ? budgets.indexOf(Number(localStorage.getItem('budget')))
+    : 0)
 
   useEffect(() => {
-    if (localStorage.getItem('next')) {
-      localStorage.removeItem('next')
-      router.push('/usage?'+(new URLSearchParams(searchParams)).toString())
-    }
-  })
+    localStorage.setItem('budget', String(budgets[budgetId]))
+  }, [budgetId])
+
+  const [selectedBenefits, setSelectedBenefits] = useState(
+    localStorage.getItem('benefits') !== null
+    ? (() => {
+      const benefits = JSON.parse(localStorage.getItem('benefits') as string) as Benefit[]
+      return benefitOrder.map(
+        benefit => benefits.includes(benefit))
+    })()
+    : Array(benefitOrder.length).fill(false))
+
+  useEffect(() => {
+    localStorage.setItem(
+      'benefits',
+      JSON.stringify(
+        benefitOrder.filter((_,i)=>selectedBenefits[i])))
+  }, [selectedBenefits])
 
   return <>
     <div>
@@ -94,13 +100,7 @@ export default function BudgetBenefitsChooser(
       </div>))}
     </div>
     <button className="mt-4" onClick={() => {
-      localStorage.setItem('next','1')
-      const queryString = new URLSearchParams({
-        ...searchParams,
-        budget: String(budgets[budgetId]),
-        benefits: benefitOrder.filter((_,i)=>selectedBenefits[i]).join(',')
-      }).toString()
-      router.replace('/budget?'+queryString)
+      router.push('/usage')
     }}>
         <Image src={arrow} alt="right arrow" className="w-8"/>
     </button>

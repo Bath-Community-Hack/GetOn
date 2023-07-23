@@ -21,19 +21,24 @@ export default async function filteredDeals(
     */
 
     if (regions && regions.length > 0 && regions[0].length > 0 &&
-      !deal.regions.some(region => regions.includes(region))) {
+      !deal.regions.some(region =>
+        regions.includes(region) || region === 'UK')) {
       return false
     }
     if (
       budget &&
       deal.price.pounds*100+deal.price.pence > budget*100
     ) return false
-    if (benefits
-      && deal.benefits.length > 0
-      && !deal.benefits.some(
-        benefit => benefits.includes(benefit)))
-    {
-      return false
+    if (deal.benefits.length > 0
+      && !deal.benefits.includes('No restriction' as Benefit)) {
+      if (benefits
+        && !deal.benefits.some(
+          benefit =>
+            benefits.includes(benefit)
+            || benefit === 'Generic benefits'))
+      {
+        return false
+      }
     }
     if (usage && deal.speed !== 'mobile'
       && deal.speed < usage) return false

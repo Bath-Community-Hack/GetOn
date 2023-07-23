@@ -41,19 +41,30 @@ const coefficients = {
     gaming: 6
 }
 
-const UsageCalculator = ({searchParams}:{
-    searchParams:Record<string,string>
-}) => {
+const UsageCalculator = () => {
     const router = useRouter()
 
-    const [usage, setUsage] = useState(0)
-    const [total, setTotal] = useState(0)
-    const [people, setPeople] = useState<Record<string,number>>({
-        streaming: 0,
-        social: 0,
-        work: 0,
-        gaming: 0
-    })
+    const [usage, setUsage] = useState(
+        localStorage.getItem('usage') ?? 0)
+
+    useEffect(() => {
+        localStorage.setItem('usage', String(usage))
+    }, [usage])
+
+    const [people, setPeople] = useState<Record<string,number>>(
+        localStorage.getItem('people')
+        ? JSON.parse(localStorage.getItem('people') as string) as Record<string,number>
+        : {
+            streaming: 0,
+            social: 0,
+            work: 0,
+            gaming: 0
+        })
+
+    useEffect(() => {
+        localStorage.setItem('people', JSON.stringify(people))
+    }, [people])
+
     const [streaming, setStreaming] = useDerivedState(
         [people, setPeople], ['streaming'])
     const [social, setSocial] = useDerivedState(
@@ -62,6 +73,9 @@ const UsageCalculator = ({searchParams}:{
         [people, setPeople], ['work'])
     const [gaming, setGaming] = useDerivedState(
         [people, setPeople], ['gaming'])
+
+    const [total, setTotal] = useState(
+        Math.max(streaming, social, work, gaming))
 
     function setTotalConstrained(n:number) {
         const max = Math.max(streaming, social, work, gaming)
@@ -149,9 +163,7 @@ const UsageCalculator = ({searchParams}:{
             </div>
         </div>
         <button className="h-16 text-lg text-blue-800 underline hover:text-blue-400 cursor-pointer"
-                onClick={()=>router.push('/results?'+(
-                    new URLSearchParams({...searchParams,usage:String(usage)})
-                ))}
+                onClick={()=>router.push('/results')}
         >
             <Image src={arrow} alt="right arrow" className="w-8"/>
         </button>

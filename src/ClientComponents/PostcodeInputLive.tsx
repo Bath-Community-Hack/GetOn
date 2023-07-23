@@ -68,13 +68,15 @@ export default forwardRef(function PostcodeInputLive({submit}: {
 
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const searchParams = useSearchParams()
-
   useEffect(() => {
-    if (searchParams.get('postCode') && inputRef.current) {
-      inputRef.current.value = searchParams.get('postCode') as string
+    if (localStorage.getItem('postcode') && inputRef.current) {
+      inputRef.current.value = localStorage.getItem('postcode') as string
     }
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem('regions', JSON.stringify(regions))
+  }, [regions])
 
   useImperativeHandle(ref, () => ({
     postcodeValid:
@@ -84,6 +86,7 @@ export default forwardRef(function PostcodeInputLive({submit}: {
   }))
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {
+    localStorage.setItem('postcode', e.target.value)
     setPostcodeValid(undefined)
     setPostcodeError('')
     setRegions([])

@@ -6,9 +6,7 @@ import { useRouter } from "next/navigation";
 import { getTopLevelBenefits } from '../../synthesis/all-deals'
 import BudgetBenefitsChooser from "@/ClientComponents/BudgetBenefitsChooser";
 
-export default async function Budget(
-  {searchParams}:{searchParams:any}
-) {
+export default async function Budget() {
   //const router = useRouter()
 
   return <QuizTemplate>
@@ -17,7 +15,6 @@ export default async function Budget(
       />
     <BudgetBenefitsChooser {...{
         benefitOrder:await getTopLevelBenefits(),
-        searchParams
       }} />
   </QuizTemplate>
 }
