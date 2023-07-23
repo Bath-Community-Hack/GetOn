@@ -18,7 +18,7 @@ export default function BudgetBenefitsChooser(
   const router = useRouter()
 
   const [budgetId, setBudgetId] = useState(
-    localStorage.getItem('budget') !== null
+    window && localStorage.getItem('budget') !== null
     ? budgets.indexOf(Number(localStorage.getItem('budget')))
     : 0)
 
@@ -27,7 +27,7 @@ export default function BudgetBenefitsChooser(
   }, [budgetId])
 
   const [selectedBenefits, setSelectedBenefits] = useState(
-    localStorage.getItem('benefits') !== null
+    window && localStorage.getItem('benefits') !== null
     ? (() => {
       const benefits = JSON.parse(localStorage.getItem('benefits') as string) as Benefit[]
       return benefitOrder.map(

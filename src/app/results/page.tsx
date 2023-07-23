@@ -20,7 +20,7 @@ const gothamBold = localFont({src: '../../../public/fonts/Gotham-Font/GothamBold
 
 function Item({item, first}:{item:Deal, first:boolean}) {
   const regions =
-    localStorage.getItem('regions')
+    window && localStorage.getItem('regions')
     ? JSON.parse(localStorage.getItem('regions') as string)
     : []
   return <div className="flex-col flex items-center max-w-sm w-full">
@@ -102,19 +102,19 @@ function Item({item, first}:{item:Deal, first:boolean}) {
 
 export default function Results() {
   const regions: OfcomRegion[] | null =
-    localStorage.getItem('regions') !== null
+    window && localStorage.getItem('regions') !== null
     ? JSON.parse(localStorage.getItem('regions') as string)
     : null
   const budget: number | null =
-    localStorage.getItem('budget') !== null
+    window && localStorage.getItem('budget') !== null
     ? Number(localStorage.getItem('budget'))
     : null
   const benefits: Benefit[] | null =
-    localStorage.getItem('benefits') !== null
+    window && localStorage.getItem('benefits') !== null
     ? JSON.parse(localStorage.getItem('benefits') as string)
     : null
   const usage: number | null =
-    localStorage.getItem('usage') !== null
+    window && localStorage.getItem('usage') !== null
     ? Number(localStorage.getItem('usage'))
     : null
 
