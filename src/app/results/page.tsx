@@ -275,6 +275,6 @@ export default function Results() {
             </>}
           </>
         })())
-    : <span className="text-[#1C75BC] text-xl">Searching...</span>}
+    : sectionTitle('Searching...')}
   </QuizTemplate>
 }
