@@ -18,8 +18,7 @@ const gotham = localFont({src: '../../public/fonts/Gotham-Font/GothamMedium.ttf'
 export default async function Home({searchParams}:{searchParams:{postCode?:string}}) {
   return (
     <main className={
-      gotham.className
-      + " flex min-h-screen flex-col items-center justify-center bg-white p-3"
+      "font-semibold flex min-h-screen flex-col items-center justify-center bg-white p-3"
     }>
       <div className="max-w-lg flex-col flex items-center justify-center">
       <div className="text-[#1C75BC] font-bold">
@@ -28,17 +27,19 @@ export default async function Home({searchParams}:{searchParams:{postCode?:strin
         <p>Get on with things...</p>
       </div>
       <div className="flex flex-col sm:flex-row items-center p-2">
-        <Image className="flex-1 w-full max-w-sm" alt="GetOn logo" src={GetOnLogo}/>
+        <span className="flex-1 w-full max-w-sm">
+          <Image className="w-full" alt="GetOn logo" src={GetOnLogo}/>
+        </span>
         <span className="mx-3 w-fit text-sm font-bold whitespace-nowrap">powered by</span>
-        <a className="flex-1 w-10/12" href="https://techforgoodsw.org.uk/">
-        <Image className="w-full my-2 max-w-sm"
-               alt="Tech4Good South West logo"
-               src={Tech4Good} />
+        <a className="flex-1 w-10/12 max-w-sm" href="https://techforgoodsw.org.uk/">
+          <Image className="w-full my-2"
+                 alt="Tech4Good South West logo"
+                 src={Tech4Good} />
         </a>
       </div>
       <div className="text-sm">
         <details className="border border-black rounded-lg p-2 text-black">
-          <summary className="cursor-pointer px-2">Limitations</summary>
+          <summary className="cursor-pointer px-2 list-item">Limitations</summary>
           <div className="border-t border-black mt-2 p-2 pb-1">
           <p className="mb-2 text-black">
             GetOn is a work in progress - that means that while we

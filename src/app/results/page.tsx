@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react'
 
 import tick from '../../../public/images/tick_blue.png'
 
-const gothamBold = localFont({src: '../../../public/fonts/Gotham-Font/GothamBold.ttf'})
+const gothamBold = {className:'font-bold'}//localFont({src: '../../../public/fonts/Gotham-Font/GothamBold.ttf'})
 
 function Item({item, first}:{item:Deal, first:boolean}) {
   const regions =
@@ -117,9 +117,9 @@ export default function Results() {
   const [regions, setRegions] = useState<OfcomRegion[]|undefined>(undefined)
   useEffect(() => {
     if (regions === undefined) {
-      const newRegions = localStorage.getItem('regions') !== undefined
+      const newRegions = localStorage.getItem('regions') !== null
         ? JSON.parse(localStorage.getItem('regions') as string)
-        : null
+        : undefined
       if (newRegions !== undefined) setRegions(newRegions)
     }
   }, [regions])
@@ -127,9 +127,9 @@ export default function Results() {
   const [budget, setBudget] = useState<OfcomRegion[]|undefined>(undefined)
   useEffect(() => {
     if (budget === undefined) {
-      const newBudget = localStorage.getItem('budget') !== undefined
+      const newBudget = localStorage.getItem('budget') !== null
         ? JSON.parse(localStorage.getItem('budget') as string)
-        : null
+        : undefined
       if (newBudget !== undefined) setBudget(newBudget)
     }
   }, [budget])
@@ -137,9 +137,9 @@ export default function Results() {
   const [benefits, setBenefits] = useState<OfcomRegion[]|undefined>(undefined)
   useEffect(() => {
     if (benefits === undefined) {
-      const newBenefits = localStorage.getItem('benefits') !== undefined
+      const newBenefits = localStorage.getItem('benefits') !== null
         ? JSON.parse(localStorage.getItem('benefits') as string)
-        : null
+        : undefined
       if (newBenefits !== undefined) setBenefits(newBenefits)
     }
   }, [benefits])
@@ -147,9 +147,9 @@ export default function Results() {
   const [usage, setUsage] = useState<OfcomRegion[]|undefined>(undefined)
   useEffect(() => {
     if (usage === undefined) {
-      const newUsage = localStorage.getItem('usage') !== undefined
+      const newUsage = localStorage.getItem('usage') !== null
         ? JSON.parse(localStorage.getItem('usage') as string)
-        : null
+        : undefined
       if (newUsage !== undefined) setUsage(newUsage)
     }
   }, [usage])
