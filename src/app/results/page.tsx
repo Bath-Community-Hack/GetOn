@@ -42,7 +42,7 @@ function Item({item, first}:{item:Deal, first:boolean}) {
           "text-2xl font-extrabold "
           +gothamBold.className
           +(budget*100 < item.price.pounds*100+item.price.pence
-            ? " text-red-600" : " text-[#1C75BC]")
+            ? " text-[#BE1E2D]" : " text-[#1C75BC]")
         }>
           £
           <span className="text-3xl">
@@ -56,7 +56,7 @@ function Item({item, first}:{item:Deal, first:boolean}) {
         </div>
       </div>
     </div>
-    <div className="flex justify-around w-full items-center">
+    <div className="flex justify-around w-full items-center mt-3 mb-1">
       {item.speed === 'mobile'
       ? <div className={
           "text-[#1C75BC] text-center "
@@ -71,7 +71,7 @@ function Item({item, first}:{item:Deal, first:boolean}) {
           <div className={
             "text-[#1C75BC] text-3xl "
             +gothamBold.className
-            +(usage > item.speed ? " text-red-600" : " text-[#1C75BC]")
+            +(usage > item.speed ? " text-[#BE1E2D]" : " text-[#1C75BC]")
             }>
             {item.speed}
           </div>

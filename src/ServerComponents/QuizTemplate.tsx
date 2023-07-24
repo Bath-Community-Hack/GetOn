@@ -11,7 +11,9 @@ export default function QuizTemplate(
 ) {
   return (
     <main className={  "font-semibold flex text-sm min-h-screen flex-col items-center justify-center bg-white p-3" }>
-      <Image className="m-2 w-8/12 max-w-[250px]" alt="GetOn logo" src={GetOnLogo}/>
+      <a href="/" className="m-2 w-8/12 max-w-[250px]">
+        <Image className="w-full" alt="GetOn logo" src={GetOnLogo}/>
+      </a>
       {children}
     </main>
   )
