@@ -43,19 +43,22 @@ export default async function filteredDeals(
   }).map(deal => {
     let valid = true
     let penalty = 0
+    let maxPenalty = 0
     if (budget !== undefined) {
       const dealPence = deal.price.pounds*100+deal.price.pence
       const budgetPence = budget*100
       const budgetPenalty = (dealPence - budgetPence)/100
       penalty += budgetPenalty
+      maxPenalty = Math.max(budgetPenalty, maxPenalty)
       valid &&= budgetPenalty <= 0
     }
     if (usage !== undefined && deal.speed !== 'mobile') {
       const usagePenalty = penaltyPerMbps * (usage - deal.speed)
       penalty += usagePenalty
+      maxPenalty = Math.max(usagePenalty, maxPenalty)
       valid &&= usagePenalty <= 0
     }
-    return {...deal, penalty, valid}
+    return {...deal, penalty, maxPenalty, valid}
   })
 
   filteredAndPenalisedDeals.sort(({penalty:a},{penalty:b})=>a-b)

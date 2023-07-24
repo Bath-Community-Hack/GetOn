@@ -18,7 +18,7 @@ import tick from '../../../public/images/tick_blue.png'
 
 const gothamBold = localFont({src: '../../../public/fonts/Gotham-Font/GothamBold.ttf'})
 
-function Item({item, first}:{item:Deal&{penalty:number,valid:boolean}, first:boolean}) {
+function Item({item, first}:{item:Deal, first:boolean}) {
   const regions =
     typeof localStorage !== 'undefined' && localStorage.getItem('regions')
     ? JSON.parse(localStorage.getItem('regions') as string)
@@ -155,7 +155,7 @@ export default function Results() {
   }, [usage])
 
   const [deals, setDeals] =
-    useState<undefined|{error:string}|(Deal&{penalty:number,valid:boolean})[]>(undefined)
+    useState<undefined|{error:string}|(Deal&{penalty:number,maxPenalty:number,valid:boolean})[]>(undefined)
 
   useEffect(() => {
     if ([regions,budget,benefits,usage].every(x=>x!==undefined)) {
@@ -249,6 +249,7 @@ export default function Results() {
       : (()=> {
           const validDeals = deals.filter(deal=>deal.valid)
           const invalidDeals = deals.filter(deal=>!deal.valid)
+          invalidDeals.sort(({maxPenalty:a},{maxPenalty:b})=>a-b)
           return <>
             {validDeals.length > 0
              ? <>
