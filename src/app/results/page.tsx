@@ -198,7 +198,12 @@ export default function Results() {
         }>Eligibility criteria:</span>
         <div className="text-right leading-4">
           {benefits.map(
-            (region,i)=><p className={i ? "mt-2" : 'mt-1'} key={region}>{region}</p>)}
+            (benefit,i)=>
+              <p className={(i ? "mt-2" : 'mt-1')
+                           +(i === benefits.length-1 ? ' mb-1' : '')}
+                 key={benefit}>
+                {benefit}
+              </p>)}
         </div>
       </div>}
       {budget !== undefined &&
