@@ -136,18 +136,18 @@ const UsageCalculator = () => {
                 <div className="text-[#1C75BC] text-lg leading-5 font-bold flex-grow">
                     How many people live in this household?
                 </div>
-                <div className="w-8 ms-2 flex-none">
+                {/* <div className="w-8 ms-2 flex-none">
                     <Image src={info} alt="info"/>
-                </div>
+                    </div> */}
             </div>
             <PeopleSelector people={total ?? 0} setPeople={setTotalConstrained}/>
             <div className="flex flex-row items-center mb-2">
                 <div className="text-[#1C75BC] text-lg leading-5 font-bold flex-grow">
                     And what do they use the internet for?
                 </div>
-                <div className="w-8 ms-2 flex-none">
-                <Image src={info} alt="info"/>
-                </div>
+                {/* <div className="w-8 ms-2 flex-none">
+                    <Image src={info} alt="info"/>
+                    </div> */}
             </div>
             <p>Streaming Music / Movies</p>
             <PeopleSelector people={streaming} setPeople={setAndSyncTotal(setStreaming)}/>

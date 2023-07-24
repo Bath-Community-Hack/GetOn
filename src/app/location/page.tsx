@@ -33,12 +33,12 @@ export default function Location({searchParams}:{
         <form {...{onSubmit}} className="flex flex-col items-center">
           <div>
             <div className="flex justify-between items-center">
-              <div className="text-[#1C75BC] font-semibold p-2">
+              <div className="text-[#1C75BC] font-semibold p-2 text-center">
                 What is the postcode needing connection?
               </div>
-              <div className="flex-none ms-2 w-8">
-                <Image src={i} alt="info" />
-              </div>
+              {/* <div className="flex-none ms-2 w-8">
+                  <Image src={i} alt="info" />
+                  </div> */}
             </div>
           <div className="px-2">
             <PostcodeInputLive ref={postcodeRef} submit={submitRef} />

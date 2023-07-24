@@ -57,9 +57,9 @@ export default function BudgetBenefitsChooser(
       <div className="font-bold text-[#1C75BC] text-lg text-left w-full flex-grow">
         Your monthly budget
       </div>
-      <div className="w-8 ms-2 flex-none">
-        <Image src={info} alt="info"/>
-      </div>
+      {/* <div className="w-8 ms-2 flex-none">
+          <Image src={info} alt="info"/>
+          </div> */}
     </div>
     <div className="flex flex-row justify-around w-full m-3">
       {budgets.map((budget,id)=>(
@@ -85,9 +85,9 @@ export default function BudgetBenefitsChooser(
       <div className="font-bold text-[#1C75BC] text-lg text-left w-full flex-grow leading-5">
         Which of these apply to you?
       </div>
-      <div className="w-8 ms-2 flex-none">
-        <Image src={info} alt="info"/>
-      </div>
+      {/* <div className="w-8 ms-2 flex-none">
+          <Image src={info} alt="info"/>
+          </div> */}
     </div>
     {benefitOrder.map((benefit, i)=>(
       <div key={i} className="my-1 w-full flex flex-row justify-between items-center">
