@@ -34,8 +34,7 @@ export default function Location({searchParams}:{
           <div>
             <div className="flex justify-between items-center">
               <div className="text-[#1C75BC] font-semibold p-2">
-                What is the postcode of where you&apos;d like
-                connection?
+                What is the postcode needing connection?
               </div>
               <div className="flex-none ms-2 w-8">
                 <Image src={i} alt="info" />

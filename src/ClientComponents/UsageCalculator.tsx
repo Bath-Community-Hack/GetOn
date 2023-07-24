@@ -44,25 +44,34 @@ const coefficients = {
 const UsageCalculator = () => {
     const router = useRouter()
 
-    const [usage, setUsage] = useState(
-        (typeof localStorage !== 'undefined' && localStorage.getItem('usage')) ?? 0)
+    const [usage, setUsage] = useState<number|undefined>(undefined)
 
     useEffect(() => {
-        localStorage.setItem('usage', String(usage))
+        if (usage === undefined) {
+            setUsage(Number(localStorage.getItem('usage') ?? '0'))
+        } else {
+            localStorage.setItem('usage', String(usage))
+        }
     }, [usage])
 
-    const [people, setPeople] = useState<Record<string,number>>(
-        typeof localStorage !== 'undefined' && localStorage.getItem('people')
-        ? JSON.parse(localStorage.getItem('people') as string) as Record<string,number>
-        : {
-            streaming: 0,
-            social: 0,
-            work: 0,
-            gaming: 0
-        })
+    const [people, setPeople] =
+        useState<Record<string,number>|undefined>(undefined)
 
     useEffect(() => {
-        localStorage.setItem('people', JSON.stringify(people))
+        if (people === undefined) {
+            const newPeople = localStorage.getItem('people')
+                ? JSON.parse(localStorage.getItem('people') as string) as Record<string,number>
+                : {
+                    streaming: 0,
+                    social: 0,
+                    work: 0,
+                    gaming: 0
+                }
+            setPeople(newPeople)
+            setTotal(Math.max(...Object.values(newPeople)))
+        } else {
+            localStorage.setItem('people', JSON.stringify(people))
+        }
     }, [people])
 
     const [streaming, setStreaming] = useDerivedState(
@@ -74,8 +83,7 @@ const UsageCalculator = () => {
     const [gaming, setGaming] = useDerivedState(
         [people, setPeople], ['gaming'])
 
-    const [total, setTotal] = useState(
-        Math.max(streaming, social, work, gaming))
+    const [total, setTotal] = useState<number|undefined>(undefined)
 
     function setTotalConstrained(n:number) {
         const max = Math.max(streaming, social, work, gaming)
@@ -107,12 +115,14 @@ const UsageCalculator = () => {
     }
 
     useEffect(() => {
-        setUsage(calculateUsage(people, total))
+        if (people !== undefined && total !== undefined) {
+            setUsage(calculateUsage(people, total))
+        }
     }, [people, total])
 
     function setAndSyncTotal(f: (n:number) => void) {
         return (n:number) => {
-            if (n > total) {
+            if (total === undefined || n > total) {
                 setTotal(n)
             }
             f(n)
@@ -130,7 +140,7 @@ const UsageCalculator = () => {
                     <Image src={info} alt="info"/>
                 </div>
             </div>
-            <PeopleSelector people={total} setPeople={setTotalConstrained}/>
+            <PeopleSelector people={total ?? 0} setPeople={setTotalConstrained}/>
             <div className="flex flex-row items-center mb-2">
                 <div className="text-[#1C75BC] text-lg leading-5 font-bold flex-grow">
                     And what do they use the internet for?
@@ -155,7 +165,7 @@ const UsageCalculator = () => {
                 </div>
                 <div className="flex items-center justify-center mt-2">
                     <span className="font-extrabold text-[#1C75BC] text-5xl">
-                        {+parseFloat(String(usage)).toFixed(1)}
+                        {usage ? +parseFloat(String(usage)).toFixed(1) : 0}
                     </span>
                     <div className="w-3" />
                     <span className="font-bold">Megabits <p>/ second</p></span>

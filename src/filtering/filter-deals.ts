@@ -1,6 +1,8 @@
 import { Benefit, OfcomRegion } from '@/synthesis/all-deals-types'
 import { getAllDeals } from '../synthesis/all-deals'
 
+const penaltyPerMbps = 0.25
+
 export default async function filteredDeals(
   regions?: OfcomRegion[],
   budget?: number,
@@ -13,7 +15,7 @@ export default async function filteredDeals(
     return deals
   }
 
-  return deals.filter(deal =>{
+  const filteredAndPenalisedDeals = deals.filter(deal =>{
     /*
     console.log(deal.name)
     console.log(benefits)
@@ -25,10 +27,6 @@ export default async function filteredDeals(
         regions.includes(region) || region === 'UK')) {
       return false
     }
-    if (
-      budget &&
-      deal.price.pounds*100+deal.price.pence > budget*100
-    ) return false
     if (deal.benefits.length > 0
       && !deal.benefits.includes('No restriction' as Benefit)) {
       if (benefits
@@ -40,9 +38,27 @@ export default async function filteredDeals(
         return false
       }
     }
-    if (usage && deal.speed !== 'mobile'
-      && deal.speed < usage) return false
 
     return true
+  }).map(deal => {
+    let valid = true
+    let penalty = 0
+    if (budget) {
+      const dealPence = deal.price.pounds*100+deal.price.pence
+      const budgetPence = budget*100
+      const budgetPenalty = (dealPence - budgetPence)/100
+      penalty += budgetPenalty
+      valid &&= budgetPenalty <= 0
+    }
+    if (usage && deal.speed !== 'mobile') {
+      const usagePenalty = penaltyPerMbps * (usage - deal.speed)
+      penalty += usagePenalty
+      valid &&= usagePenalty <= 0
+    }
+    return {...deal, penalty, valid}
   })
+
+  filteredAndPenalisedDeals.sort(({penalty:a},{penalty:b})=>a-b)
+
+  return filteredAndPenalisedDeals
 }

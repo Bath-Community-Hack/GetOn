@@ -17,29 +17,38 @@ export default function BudgetBenefitsChooser(
 }) {
   const router = useRouter()
 
-  const [budgetId, setBudgetId] = useState(
-    typeof localStorage !== 'undefined' && localStorage.getItem('budget') !== null
-    ? budgets.indexOf(Number(localStorage.getItem('budget')))
-    : 0)
+  const [budgetId, setBudgetId] = useState<number|undefined>(undefined)
 
   useEffect(() => {
-    localStorage.setItem('budget', String(budgets[budgetId]))
+    if (budgetId === undefined) {
+      setBudgetId(
+        localStorage.getItem('budget') !== null
+        ? budgets.indexOf(Number(localStorage.getItem('budget')))
+        : 0)
+    } else {
+      localStorage.setItem('budget', String(budgets[budgetId]))
+    }
   }, [budgetId])
 
-  const [selectedBenefits, setSelectedBenefits] = useState(
-    typeof localStorage !== 'undefined' && localStorage.getItem('benefits') !== null
-    ? (() => {
-      const benefits = JSON.parse(localStorage.getItem('benefits') as string) as Benefit[]
-      return benefitOrder.map(
-        benefit => benefits.includes(benefit))
-    })()
-    : Array(benefitOrder.length).fill(false))
+  const [selectedBenefits, setSelectedBenefits] =
+    useState<boolean[]|undefined>(undefined)
 
   useEffect(() => {
-    localStorage.setItem(
-      'benefits',
-      JSON.stringify(
-        benefitOrder.filter((_,i)=>selectedBenefits[i])))
+    if (selectedBenefits === undefined) {
+      setSelectedBenefits(
+        localStorage.getItem('benefits') !== null
+        ? (() => {
+          const benefits = JSON.parse(localStorage.getItem('benefits') as string) as Benefit[]
+          return benefitOrder.map(
+            benefit => benefits.includes(benefit))
+        })()
+        : Array(benefitOrder.length).fill(false))
+    } else {
+      localStorage.setItem(
+        'benefits',
+        JSON.stringify(
+          benefitOrder.filter((_,i)=>selectedBenefits[i])))
+    }
   }, [selectedBenefits])
 
   return <>
@@ -86,18 +95,21 @@ export default function BudgetBenefitsChooser(
         <div className="h-7 w-7 rounded-xl shadow-[inset_2px_2px_3px_#888] relative cursor-pointer flex-none ms-4"
            style={{border:'2px solid #1C75BC'}}
            onClick={()=>{
-             selectedBenefits[i] = !selectedBenefits[i]
-             setSelectedBenefits([...selectedBenefits])
+             if (selectedBenefits !== undefined) {
+               selectedBenefits[i] = !selectedBenefits[i]
+               setSelectedBenefits([...selectedBenefits])
+             }
            }}
         >
-          {selectedBenefits[i] &&
+          {selectedBenefits !== undefined && selectedBenefits[i] &&
            <div className="w-10 h-10 absolute"
             style={{top:'-11px', left:'-3px'}}
           >
             <Image src={tick} alt="blue tick" />
           </div>}
         </div>
-      </div>))}
+      </div>
+    ))}
     </div>
     <button className="mt-4" onClick={() => {
       router.push('/usage')

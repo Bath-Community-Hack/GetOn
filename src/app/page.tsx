@@ -75,6 +75,20 @@ export default async function Home({searchParams}:{searchParams:{postCode?:strin
           </p>
           </div>
         </details>
+        <details className="border border-black rounded-lg p-2 text-black mt-2">
+          <summary className="cursor-pointer px-2">Roadmap</summary>
+          <div className="border-t border-black mt-2 p-2 pb-1">
+            <ul>
+              <li>☐{" "}
+                <Image className="inline h-6 w-6" alt="info" src={i}/>
+                {" "}tooltips</li>
+              <li>☐ Distinguish general and income-based JSA/ESA</li>
+              <li>☐ Information about zero-cost connections</li>
+              <li>☐ Postcode-specific connection speed advice</li>
+              <li>☐ Integrate with provider postcode search</li>
+            </ul>
+          </div>
+        </details>
         <p className="my-2">
           If you meet any of the following criteria, you may
           be eligible for a discounted broadband package known
@@ -82,7 +96,7 @@ export default async function Home({searchParams}:{searchParams:{postCode?:strin
         </p>
         <ul className="list-disc ps-4">
           {(await getTopLevelBenefits()).map(
-            benefit=><li key={benefit}>{benefit}</li>)}
+            (benefit:string)=><li key={benefit}>{benefit}</li>)}
         </ul>
         <p className="mt-2">
           The{" "}
