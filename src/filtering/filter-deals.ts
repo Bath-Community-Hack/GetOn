@@ -43,14 +43,14 @@ export default async function filteredDeals(
   }).map(deal => {
     let valid = true
     let penalty = 0
-    if (budget) {
+    if (budget !== undefined) {
       const dealPence = deal.price.pounds*100+deal.price.pence
       const budgetPence = budget*100
       const budgetPenalty = (dealPence - budgetPence)/100
       penalty += budgetPenalty
       valid &&= budgetPenalty <= 0
     }
-    if (usage && deal.speed !== 'mobile') {
+    if (usage !== undefined && deal.speed !== 'mobile') {
       const usagePenalty = penaltyPerMbps * (usage - deal.speed)
       penalty += usagePenalty
       valid &&= usagePenalty <= 0
