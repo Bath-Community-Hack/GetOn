@@ -116,7 +116,9 @@ export default async function Home({searchParams}:{searchParams:{postCode?:strin
           different internet service providers (ISPs).
         </p>
         <p className="mt-2">
-          GetOn is here to help you find the offers available to you, which fit your requirements.
+          GetOn is here to help you navigate these offers. We&apos;ll
+          show you only the ones available in your area, and which
+          you&apos;re eligible for.
         </p>
         {/* <p className="mt-2">
             At any point, click the {" "}
