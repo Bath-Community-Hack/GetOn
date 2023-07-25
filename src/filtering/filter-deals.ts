@@ -22,7 +22,7 @@ export default async function filteredDeals(
     console.log(deal.benefits)
     */
 
-    if (regions && regions.length > 0 && regions[0].length > 0 &&
+    if (regions !== undefined &&
       !deal.regions.some(region =>
         regions.includes(region) || region === 'UK')) {
       return false
