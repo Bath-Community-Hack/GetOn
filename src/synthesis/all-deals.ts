@@ -8,6 +8,7 @@ export const onsOfcomRegionCodes: Record<string,OfcomRegion> = {
   'E92000001': 'England',
   'W92000004': 'Wales',
   'S92000003': 'Scotland',
+  'N92000002': 'Northern Ireland',
   'E12000007': 'London',
   'E10000003': 'Cambridgeshire',
   'E10000012': 'Essex',

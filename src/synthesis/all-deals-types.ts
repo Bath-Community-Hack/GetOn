@@ -3,6 +3,7 @@ export const ofcomRegions = [
   'England',
   'Wales',
   'Scotland',
+  'Northern Ireland',
   'London',
   'Cambridgeshire',
   'Essex',
