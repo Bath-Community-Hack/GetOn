@@ -38,10 +38,16 @@ export async function POST(
     await initialCTMDealsSlashPostcodeValidation(body.postcode)
   */
 
+  let res: NextResponse
+
   if (!data.results.bindings.find((binding:any) => binding.postcode))
   {
-    return NextResponse.json({error: 'Please enter a valid postcode'})
+    res = NextResponse.json({error: 'Please enter a valid postcode'})
   } else {
-    return NextResponse.json({regions: [...regions]})
+    res = NextResponse.json({regions: [...regions]})
   }
+
+  res.headers.set("Access-Control-Allow-Origin", "*")
+
+  return res
 }
