@@ -127,7 +127,7 @@ export default async function Home({searchParams}:{searchParams:{postCode?:strin
             </p> */}
       </div>
       <a href="/location"
-         className="mt-2 text-lg text-blue-800 underline hover:text-blue-400 w-7/12">
+         className="mt-2 text-lg text-blue-800 underline hover:text-blue-400 w-7/12 max-w-[250px]">
         <Image alt="Get Started" src={GetStarted} className="max-w-[250px] w-full"/>
       </a>
       </div>
