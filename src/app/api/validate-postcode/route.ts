@@ -3,6 +3,16 @@ import { onsOfcomRegionCodes } from '@/synthesis/all-deals'
 import axios from 'axios'
 import { NextRequest, NextResponse } from 'next/server'
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+}
+
+export async function OPTIONS(req: NextRequest) {
+  return NextResponse.json({}, { headers: corsHeaders })
+}
+
 export async function POST(
   req: NextRequest
 ) {
@@ -38,16 +48,12 @@ export async function POST(
     await initialCTMDealsSlashPostcodeValidation(body.postcode)
   */
 
-  let res: NextResponse
-
   if (!data.results.bindings.find((binding:any) => binding.postcode))
   {
-    res = NextResponse.json({error: 'Please enter a valid postcode'})
+    return NextResponse.json({error: 'Please enter a valid postcode'},
+                             {headers: corsHeaders})
   } else {
-    res = NextResponse.json({regions: [...regions]})
+    return NextResponse.json({regions: [...regions]},
+                             {headers: corsHeaders})
   }
-
-  res.headers.set("Access-Control-Allow-Origin", "*")
-
-  return res
 }
