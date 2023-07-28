@@ -99,8 +99,7 @@ export default function BudgetBenefitsChooser(
                selectedBenefits[i] = !selectedBenefits[i]
                setSelectedBenefits([...selectedBenefits])
              }
-           }}
-        >
+           }} >
           {selectedBenefits !== undefined && selectedBenefits[i] &&
            <div className="w-10 h-10 absolute"
             style={{top:'-11px', left:'-3px'}}
