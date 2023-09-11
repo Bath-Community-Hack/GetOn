@@ -30,6 +30,11 @@ export const onsOfcomRegionCodes: Record<string,OfcomRegion> = {
 
 let benefitOrder: Benefit[] | null = null
 
+export type BenefitsTreeNode = {
+  benefit: Benefit,
+  children: BenefitsTreeNode[]
+}
+
 export async function getBenefitOrder() {
   if (!benefitOrder) {
     benefitOrder =
@@ -37,6 +42,33 @@ export async function getBenefitOrder() {
         .slice(4) as Benefit[]
   }
   return benefitOrder
+}
+
+export async function getBenefitsTree() {
+  const benefitOrder = await getBenefitOrder()
+
+  const topLevelBenefits = await getTopLevelBenefits()
+
+  const benefitsTree: BenefitsTreeNode[] =
+    topLevelBenefits.map(benefit => ({
+      benefit, children: []
+    }))
+
+  benefitOrder.forEach(candidateBenefit => {
+    if (topLevelBenefits.includes(candidateBenefit)) {
+      return
+    }
+
+    benefitsTree.forEach(({ benefit, children }) => {
+      if (candidateBenefit.startsWith(benefit)
+          && candidateBenefit !== benefit)
+      {
+        children.push({benefit: candidateBenefit, children: []})
+      }
+    })
+  })
+
+  return benefitsTree
 }
 
 export async function getTopLevelBenefits() {
