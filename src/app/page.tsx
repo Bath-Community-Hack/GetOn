@@ -80,17 +80,17 @@ export default async function Home({searchParams}:{searchParams:{postCode?:strin
           <summary className="cursor-pointer px-2">Roadmap</summary>
           <div className="border-t border-black mt-2 p-2 pb-1">
             <ul>
-              {[<>
+              {[[<>
                   <Image className="inline h-6 w-6" alt="info" src={i}/>
                   {" "}tooltips
-                </>,
-                'Distinguish general and income-based JSA/ESA, and support the different types of Social Services referral',
-                'Information about zero-cost connections',
-                'Postcode-specific connection speed advice',
-                'Integrate with provider postcode search'
-              ].map((content,i)=><li key={i}>
+                </>, false],
+                ['Distinguish general and income-based JSA/ESA, and support the different types of Social Services referral', true],
+                ['Information about zero-cost connections', false],
+                ['Postcode-specific connection speed advice', false],
+                ['Integrate with provider postcode search', false]
+              ].map(([content,done],i)=><li key={i}>
                 <div className="flex items-start gap-2">
-                  <div>☐</div>
+                  <div>{done ? "☑" : "☐"}</div>
                   <div>{content}</div>
                 </div>
               </li>)}
